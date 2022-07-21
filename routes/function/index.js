@@ -3,6 +3,7 @@ const Product = require("../../models/Product");
 const Checkout = require("../../models/Checkout");
 const Cart = require("../../models/Cart");
 const Order = require("../../models/Order");
+const { transporter } = require("../../config");
 
 const getOrderById = async (req, res, next) => {
   try {
@@ -40,6 +41,12 @@ const handleSuccess = async (req, res, next) => {
     const { id } = req.body.data.object.metadata;
     try {
       await Checkout.handlePayment(id);
+      await transporter.sendMail({
+        from: "test-123-123-123@outlook.com",
+        to: "obh555@gmail.com",
+        subject: "Sending email with node.js",
+        text: "Thank you for purchasing with SellMyStuff. Your payment has been successfully processed, please allow 2-3 days for item to be shipped.",
+      });
       res.status(200).end();
     } catch (error) {
       next(error);
