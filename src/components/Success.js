@@ -2,7 +2,7 @@ export default function Success() {
   return (
     <div>
       <div className="container my-5">
-        <div className="card" style={{ width: "100%", height: "35vh" }}>
+        <div className="card" style={{ width: "100%", minHeight: "35vh" }}>
           <div className="card-body d-flex align-items-center flex-column justify-content-center">
             <h2 className="card-title text-center">Thank you for purchasing with Sell My Stuff.</h2>
             <br />

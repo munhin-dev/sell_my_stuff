@@ -83,7 +83,7 @@ CREATE TABLE order_details (
     customer_id int references customer(id),
     content TEXT NOT NULL,
     shipped Boolean,
-    tracking_number TEXT, 
+    tracking_number TEXT,
     created_at timestamp DEFAULT now(),
     modified_at timestamp
 );
@@ -127,3 +127,4 @@ VALUES
         '47610',
         'Malaysia'
     );
+

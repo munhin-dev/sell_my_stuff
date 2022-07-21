@@ -1,8 +1,6 @@
-import Login from "../components/Login";
-import handleSignin from "../components/App";
-import { Outlet } from "react-router-dom";
+import { Outlet, Navigate } from "react-router-dom";
 
 export default function ProtectedRoute({ user, children }) {
-  if (!user) return <Login onSignin={handleSignin} />;
+  if (!user) return <Navigate to="/signin" />;
   return children ? children : <Outlet />;
 }

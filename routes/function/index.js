@@ -24,7 +24,10 @@ const getAllOrder = async (req, res, next) => {
 
 const handleCheckout = async (req, res, next) => {
   try {
-    const url = await Checkout.createSession(req.body.items, req.session.userId);
+    const url = await Checkout.createSession(
+      req.body.items,
+      req.session.userId
+    );
     res.json({ url });
   } catch (error) {
     next(error);
@@ -66,7 +69,9 @@ const createUpdateCart = async (req, res, next) => {
 
 const getProduct = async (req, res, next) => {
   try {
-    const products = req.query.category ? await Product.getByCategory(req.query.category) : await Product.getAll();
+    const products = req.query.category
+      ? await Product.getByCategory(req.query.category)
+      : await Product.getAll();
     res.status(200).json(products);
   } catch (error) {
     next(error);
@@ -92,7 +97,10 @@ const getCurrentUser = async (req, res, next) => {
 };
 
 const validateSession = async (req, res) => {
-  res.status(200).json({ isAuthenticated: Boolean(req.session.userId), isAdmin: req.session.admin });
+  res.status(200).json({
+    isLoggedIn: Boolean(req.session.userId),
+    isAdmin: req.session.admin,
+  });
 };
 
 const updateUser = async (req, res, next) => {
@@ -118,7 +126,77 @@ const loginUser = async (req, res, next) => {
     const { id, is_admin } = await User.login(req.body);
     req.session.userId = id;
     req.session.admin = is_admin;
-    res.status(200).json({ message: "You are logged in!!", isAuthenticated: true, isAdmin: is_admin });
+    res.status(200).json({ message: "User authenticated!!" });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const logoutUser = async (req, res, next) => {
+  try {
+    req.session.destroy();
+    res.status(200).json({ message: "User Logged Out." });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getEveryOrder = async (req, res, next) => {
+  try {
+    const response = await Order.getAllOrder();
+    res.status(200).json(response);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const updateOrder = async (req, res, next) => {
+  try {
+    await Order.update(
+      req.body.tracking_number,
+      req.body.shipped,
+      req.params.id
+    );
+    res
+      .status(200)
+      .json({ message: "Shipping Information Updated Successfully!" });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const updateInventory = async (req, res, next) => {
+  try {
+    const item_id = req.params.id;
+    const { name, description, category, quantity, price, image } =
+      req.body.input;
+    await Product.updateProduct(
+      name,
+      description,
+      category,
+      quantity,
+      price,
+      image,
+      item_id
+    );
+    res.status(200).json({ message: "Product Updated Successfully!" });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const addNewProduct = async (req, res, next) => {
+  try {
+    const { name, description, category, quantity, price, image } =
+      req.body.input;
+    await Product.addProduct(
+      name,
+      description,
+      category,
+      quantity,
+      price,
+      image
+    );
   } catch (error) {
     next(error);
   }
@@ -138,4 +216,9 @@ module.exports = {
   updateUser,
   registerUser,
   loginUser,
+  logoutUser,
+  getEveryOrder,
+  updateOrder,
+  updateInventory,
+  addNewProduct,
 };

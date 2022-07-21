@@ -6,10 +6,9 @@ const dayjs = require("dayjs");
 
 export default function Orders() {
   const [orders, setOrders] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(true);
     axios.get("/order").then(({ data }) => {
       setOrders(data);
       setLoading(false);
@@ -18,7 +17,10 @@ export default function Orders() {
 
   const calculateTotal = (arr) => {
     if (orders.length === 0) return 0;
-    return JSON.parse(arr).reduce((total, order) => total + order.quantity * order.item.price, 0);
+    return JSON.parse(arr).reduce(
+      (total, order) => total + order.quantity * order.item.price,
+      0
+    );
   };
 
   if (loading) return <Loading />;
@@ -42,7 +44,18 @@ export default function Orders() {
                 <th scope="row">{order.id}</th>
                 <td>{dayjs(order.created_at).format("YYYY-MM-DD hh:mm A")}</td>
                 <td>RM {calculateTotal(order.content)}</td>
-                <td>{order.tracking_number ? order.tracking_number : "Pending Shipping"}</td>
+                <td>
+                  {order.tracking_number ? (
+                    <a
+                      style={{ color: "blue" }}
+                      href={`https://easyparcel.com/my/en/track/details/?courier=Poslaju&awb=${order.tracking_number}`}
+                    >
+                      {order.tracking_number}
+                    </a>
+                  ) : (
+                    "Pending Shipping"
+                  )}
+                </td>
                 <td>
                   <Link to={`/orders/${order.id}`} className="text-muted">
                     Show Details

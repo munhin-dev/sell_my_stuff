@@ -108,6 +108,7 @@ export default function Cart({ cart, onCart, user }) {
               <h5 className="card-subtitle my-4 ">
                 Estimated Shipping: <span style={{ float: " right" }}>Free</span>
               </h5>
+              <h6 className="card-text text-muted">Shipping only available via Poslaju</h6>
               <h5 className="card-subtitle my-4">
                 Total: <span style={{ float: " right" }}>RM {calculateTotal()}</span>
               </h5>
