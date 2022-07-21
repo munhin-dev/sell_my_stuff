@@ -13,13 +13,12 @@ class Order {
 
   static async getAllOrder() {
     const response = await db.query(
-      "SELECT order_details.id, username, address_line1, address_line2, city, postal_code, country, shipped, content, order_details.created_at FROM order_details INNER JOIN customer ON order_details.customer_id = customer.id INNER JOIN customer_address ON customer_address.customer_id = customer.id"
+      "SELECT order_details.id, username, address_line1, address_line2, city, postal_code, country, shipped, content, order_details.created_at FROM order_details INNER JOIN customer ON order_details.customer_id = customer.id INNER JOIN customer_address ON customer_address.customer_id = customer.id ORDER BY created_at DESC"
     );
     return response.rows;
   }
 
   static async update(tracking_number, shipped, id) {
-    console.log(tracking_number, shipped, id)
     await db.query("UPDATE order_details SET tracking_number = $1, shipped = $2 WHERE id = $3", [tracking_number, shipped, id]);
   }
 }

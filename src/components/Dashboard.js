@@ -41,7 +41,9 @@ export default function Dashboard() {
         <h3 className="my-3">Total Sales: RM {calculateEarning(orders)}</h3>
       </div>
       <div className="row justify-content-end">
-        <a href="/admin/product/new" className="col-auto btn btn-primary">Add Product</a>
+        <a href="/admin/product/new" className="col-auto btn btn-primary">
+          Add Product
+        </a>
       </div>
       <div className="my-5" style={{ height: "300px", overflowY: "scroll" }}>
         <table className="table caption-top">
@@ -68,7 +70,17 @@ export default function Dashboard() {
                   </td>
                   <td>RM {calculateTotal(order.content)}</td>
                   <td>{order.username}</td>
-                  <td>{order.shipped ? "Yes" : "No"}</td>
+                  <td>
+                    {order.shipped ? (
+                      <button type="button" className="btn btn-success" disabled>
+                        YES
+                      </button>
+                    ) : (
+                      <button type="button" className="btn btn-danger" disabled>
+                        NO
+                      </button>
+                    )}
+                  </td>
                   <td className="col-2">
                     <p>
                       <button
@@ -76,6 +88,10 @@ export default function Dashboard() {
                         type="button"
                         data-bs-toggle="collapse"
                         data-bs-target={`#address${order.id}`}
+                        style={{
+                          position: "relative",
+                          top: "8px",
+                        }}
                       >
                         Address
                       </button>
