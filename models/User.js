@@ -3,12 +3,12 @@ const bcrypt = require("bcryptjs");
 
 class User {
   static async create(body) {
-    const [username, password, email, ...rest] = Object.values(body);
+    const { username, password, email, first_name, last_name, mobile } = body;
     const res = await db.query("SELECT * FROM customer WHERE username = $1 OR email = $2", [username, email]);
     if (res.rows.length !== 0) throw new Error("Account already exists!");
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(password, salt);
-    db.query("INSERT INTO customer (username, password, email, first_name, last_name, mobile) VALUES ($1, $2, $3, $4, $5, $6)", [username, hash, email, ...rest]);
+    db.query("INSERT INTO customer (username, password, email, first_name, last_name, mobile) VALUES ($1, $2, $3, $4, $5, $6)", [username, hash, email, first_name, last_name, mobile]);
   }
 
   static async login(body) {

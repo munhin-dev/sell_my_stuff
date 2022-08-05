@@ -35,9 +35,9 @@ export default function Login({ onLogin, onAdmin }) {
           {error}
         </div>
       )}
-      <form className="container-sm my-5 py-5" onSubmit={handleSubmit}>
+      <form className="container my-5 py-5" onSubmit={handleSubmit}>
         <div className="row justify-content-center">
-          <div className="col col-md-6 col-lg-4 ">
+          <div className="col" style={{maxWidth:"350px"}}>
             <div className="form-group mb-4">
               <label className="form-label" htmlFor="username">
                 Username

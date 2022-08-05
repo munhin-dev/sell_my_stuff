@@ -4,14 +4,15 @@ const db = require("../db");
 
 class Checkout {
   static async createSession(items, id) {
-    const dbRes = await db.query("SELECT id, name, price FROM product");
-    const products = new Map(dbRes.rows.map((product) => [product.id, { price: product.price * 100, name: product.name }]));
+    const dbRes = await db.query("SELECT id, name, price, quantity FROM product");
+    const products = new Map(dbRes.rows.map((product) => [product.id, { price: product.price * 100, name: product.name, quantity: product.quantity }]));
     const session = await stripe.checkout.sessions.create({
       payment_intent_data: { metadata: { id } },
       payment_method_types: ["card"],
       mode: "payment",
       line_items: items.map((item) => {
         const storeItem = products.get(item.id);
+        if (storeItem.quantity < item.quantity) throw new Error("Insufficient Inventory");
         return {
           price_data: {
             currency: "myr",

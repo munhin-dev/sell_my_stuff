@@ -17,6 +17,7 @@ import Dashboard from "./Dashboard";
 import Shipping from "./Shipping";
 import Cookies from "js-cookie";
 import Inventory from "./Inventory";
+import Signup from "./Signup";
 import ProductForm from "./ProductForm";
 
 function App() {
@@ -101,6 +102,7 @@ function App() {
               path="/signin"
               element={<Login onLogin={handleLogin} onAdmin={handleAdmin} />}
             />
+            <Route path="/signup" element={<Signup />} />
             <Route path="/success" element={<Success />} />
             <Route element={<ProtectedRoute user={user} />}>
               <Route path="/account" element={<Account />} />

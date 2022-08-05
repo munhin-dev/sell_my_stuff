@@ -2,25 +2,37 @@ const { body, validationResult } = require("express-validator");
 
 const userValidationRules = () => {
   return [
-    body("first_name", "No special characters allowed for first name")
+    body("first_name")
       .trim()
+      .notEmpty()
+      .withMessage("Invalid first name provided")
       .isAlpha(undefined, {
         ignore: " ",
       })
-      .isLength({ max: 64 }),
-    body("last_name", "No special characters allowed for last name")
+      .withMessage("No special characters allowed for first name")
+      .isLength({ max: 64 })
+      .withMessage("Username cannot be longer than 64 characters"),
+    body("last_name")
       .trim()
+      .notEmpty()
+      .withMessage("Invalid first last name provided")
       .isAlpha(undefined, {
         ignore: " ",
       })
+      .withMessage("No special characters allowed for last name")
       .isLength({ max: 64 }),
-    body("username", "Only alphanumeric characters allowed for username")
+
+    body("username")
       .trim()
+      .notEmpty()
+      .withMessage("Invalid username provided")
       .isAlphanumeric(undefined, {
         ignore: "_-",
       })
-      .isLength({ max: 32 }),
-    body("password", "Password must be at least 5 characters long and contain one uppercase letters and one special case letter").isStrongPassword({
+      .withMessage("Only alphanumeric characters allowed for username")
+      .isLength({ max: 32 })
+      .withMessage("Username cannot be longer than 32 characters"),
+    body("password", "Password does not meet minimum requirements").isStrongPassword({
       minLength: 5,
       minLowercase: 0,
       minUppercase: 1,
@@ -33,13 +45,11 @@ const userValidationRules = () => {
 };
 
 const validate = (req, res, next) => {
-  const errors = validationResult(req);
-  if (errors.isEmpty()) {
+  const result = validationResult(req);
+  if (result.isEmpty()) {
     return next();
   }
-  const extractedErrors = [];
-  errors.array().map((err) => extractedErrors.push({ [err.param]: err.msg }));
-  throw extractedErrors;
+  throw result.errors;
 };
 
 module.exports = {
