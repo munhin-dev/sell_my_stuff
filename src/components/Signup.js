@@ -2,10 +2,14 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import ReactTooltip from "react-tooltip";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import Cookies from "js-cookie";
 
-export default function Signup() {
+export default function Signup({ onLogin }) {
   const [inputs, setInputs] = useState({});
   const [errors, setErrors] = useState([]);
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -17,6 +21,20 @@ export default function Signup() {
     event.preventDefault();
     try {
       await axios.post("/register", { ...inputs });
+      const { username, password } = inputs;
+      await axios.post("/login", { username, password });
+      const { data } = await axios.get("/authenticate");
+      const { isLoggedIn, isAdmin } = data;
+      Cookies.set("login", isLoggedIn);
+      Cookies.set("admin", isAdmin);
+      await Swal.fire({
+        icon: "success",
+        title: "Account successfully created",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      onLogin(isLoggedIn);
+      navigate("/");
     } catch (err) {
       setErrors(err.response.data.error);
     }
@@ -28,7 +46,7 @@ export default function Signup() {
   return (
     <div className="container col-8 my-5" style={{ maxWidth: "350px" }}>
       <div className="row flex-column mt-5">
-        <form className="mx-auto" onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <div className="text-end">
             <Link to="/">
               <button type="button" className="btn-close" aria-label="Close"></button>
@@ -45,7 +63,7 @@ export default function Signup() {
             <input type="text" className={`form-control ${invalid("last_name")}`} name="last_name" onChange={handleChange} />
             <div className="invalid-feedback">{message("last_name")}</div>
           </div>
-          <div className="form-group mt-4">
+          <div className="form-group my-4">
             <label>Username:</label>
             <input type="text" className={`form-control ${invalid("username")}`} name="username" onChange={handleChange} />
             <div className="invalid-feedback">{message("username")}</div>
@@ -58,8 +76,7 @@ export default function Signup() {
                   <i className="fa fa-exclamation-circle opacity-50" data-tip data-for="registerTip" aria-hidden="true"></i>
                   <ReactTooltip id="registerTip" place="top" effect="solid" type="dark" multiline={true}>
                     - Password must be at least 5 characters long <br />
-                    - Contain one uppercase letters <br />
-                    - Contain one special case letter
+                    - Contain one uppercase letters <br />- Contain one special case letter
                   </ReactTooltip>
                 </div>
               </div>
@@ -79,9 +96,11 @@ export default function Signup() {
             <input type="text" className={`form-control ${invalid("mobile")}`} name="mobile" onChange={handleChange} />
             <div className="invalid-feedback">{message("mobile")}</div>
           </div>
-          <button type="submit" className="btn btn-primary mt-4">
-            Submit
-          </button>
+          <div className="form-group mt-4">
+            <button type="submit" className="btn btn-primary mt-2">
+              Submit
+            </button>
+          </div>
         </form>
       </div>
     </div>

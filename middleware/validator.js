@@ -1,4 +1,5 @@
 const { body, validationResult } = require("express-validator");
+const User = require("../models/User");
 
 const userValidationRules = () => {
   return [
@@ -31,7 +32,13 @@ const userValidationRules = () => {
       })
       .withMessage("Only alphanumeric characters allowed for username")
       .isLength({ max: 32 })
-      .withMessage("Username cannot be longer than 32 characters"),
+      .withMessage("Username cannot be longer than 32 characters")
+      .custom(async (value) => {
+        const user = await User.getByUsername(value);
+        if (user) {
+          return Promise.reject("Username already in use");
+        }
+      }),
     body("password", "Password does not meet minimum requirements").isStrongPassword({
       minLength: 5,
       minLowercase: 0,
@@ -39,7 +46,14 @@ const userValidationRules = () => {
       minNumbers: 0,
       minSymbols: 1,
     }),
-    body("email", "Invalid email address provided").isEmail(),
+    body("email", "Invalid email address provided")
+      .isEmail()
+      .custom(async (value) => {
+        const user = await User.getByEmail(value);
+        if (user) {
+          return Promise.reject("E-mail already in use");
+        }
+      }),
     body("mobile", "Mobile number is invalid").isMobilePhone(),
   ];
 };

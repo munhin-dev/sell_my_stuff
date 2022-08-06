@@ -106,7 +106,7 @@ const getCurrentUser = async (req, res, next) => {
 const validateSession = async (req, res) => {
   res.status(200).json({
     isLoggedIn: Boolean(req.session.userId),
-    isAdmin: req.session.admin,
+    isAdmin: Boolean(req.session.admin),
   });
 };
 

@@ -1,14 +1,14 @@
 import axios from "axios";
 import { useState } from "react";
 import Select from "react-select";
+import { useNavigate } from "react-router-dom";
 
-export default function Shipping() {
+export default function ProductForm() {
   const [input, setInput] = useState();
+  const navigate = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios
-      .post(`/products/create/`, { input })
-      .then(() => (window.location.href = "/admin"));
+    axios.post(`/products/create/`, { input }).then(() => navigate("/admin"));
   };
 
   const handleChange = (event) => {
@@ -30,29 +30,14 @@ export default function Shipping() {
   return (
     <div>
       <div className="container my-5 d-flex justify-content-center">
-        <form
-          className="col col-md-8 col-lg-5 col-xl-3"
-          onSubmit={handleSubmit}
-        >
+        <form className="col col-md-8 col-lg-5 col-xl-3" onSubmit={handleSubmit}>
           <div className="form-group my-2">
             <label htmlFor="name">Name</label>
-            <input
-              type="text"
-              className="form-control"
-              name="name"
-              id="name"
-              onChange={handleChange}
-            />
+            <input type="text" className="form-control" name="name" id="name" onChange={handleChange} />
           </div>
           <div className="form-group my-2">
             <label htmlFor="description">Description</label>
-            <input
-              type="text"
-              className="form-control"
-              name="description"
-              id="description"
-              onChange={handleChange}
-            />
+            <input type="text" className="form-control" name="description" id="description" onChange={handleChange} />
           </div>
           <div className="form-group my-2">
             <label htmlFor="category">Category</label>
@@ -60,39 +45,18 @@ export default function Shipping() {
           </div>
           <div className="form-group my-2">
             <label htmlFor="quantity">Quantity</label>
-            <input
-              type="text"
-              className="form-control"
-              name="quantity"
-              id="quantity"
-              onChange={handleChange}
-            />
+            <input type="text" className="form-control" name="quantity" id="quantity" onChange={handleChange} />
           </div>
           <div className="form-group my-2">
             <label htmlFor="price">Price</label>
-            <input
-              type="text"
-              className="form-control"
-              name="price"
-              id="price"
-              onChange={handleChange}
-            />
+            <input type="text" className="form-control" name="price" id="price" onChange={handleChange} />
           </div>
           <div className="form-group my-2">
             <label htmlFor="image">Image</label>
-            <input
-              type="text"
-              className="form-control"
-              name="image"
-              id="image"
-              onChange={handleChange}
-            />
+            <input type="text" className="form-control" name="image" id="image" onChange={handleChange} />
           </div>
 
-          <button
-            type="submit"
-            className="btn btn-primary my-2 d-block mx-auto"
-          >
+          <button type="submit" className="btn btn-primary my-2 d-block mx-auto">
             Submit
           </button>
         </form>

@@ -3,13 +3,14 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Select from "react-select";
 import Loading from "./Loading";
+import { useNavigate } from "react-router-dom";
 
 export default function Shipping() {
   const [product, setProduct] = useState();
   const [input, setInput] = useState();
-
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios.get(`/products/${id}`).then(({ data }) => {
@@ -28,7 +29,7 @@ export default function Shipping() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios.put(`/products/update/${id}`, { input }).then(() => (window.location.href = "/admin"));
+    axios.put(`/products/update/${id}`, { input }).then(() => navigate("/admin"));
   };
 
   const handleChange = (event) => {

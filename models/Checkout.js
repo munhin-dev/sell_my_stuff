@@ -4,6 +4,8 @@ const db = require("../db");
 
 class Checkout {
   static async createSession(items, id) {
+    const address = await db.query("Select * FROM customer_address WHERE id = $1", [id]);
+    if (address.rows[0] === 0) throw new Error("Address not found");
     const dbRes = await db.query("SELECT id, name, price, quantity FROM product");
     const products = new Map(dbRes.rows.map((product) => [product.id, { price: product.price * 100, name: product.name, quantity: product.quantity }]));
     const session = await stripe.checkout.sessions.create({

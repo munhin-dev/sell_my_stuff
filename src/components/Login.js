@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Cookies from "js-cookie";
 
 export default function Login({ onLogin, onAdmin }) {
@@ -30,15 +30,13 @@ export default function Login({ onLogin, onAdmin }) {
 
   return (
     <div>
-      {error && (
-        <div className="alert alert-danger" role="alert">
-          {error}
-        </div>
-      )}
-      <form className="container my-5 py-5" onSubmit={handleSubmit}>
+      <div className="alert alert-danger" role="alert" style={{ visibility: error ? "visible" : "hidden", minHeight: "65.58px" }}>
+        {error}
+      </div>
+      <form className="container" onSubmit={handleSubmit}>
         <div className="row justify-content-center">
-          <div className="col" style={{maxWidth:"350px"}}>
-            <div className="form-group mb-4">
+          <div className="col" style={{ maxWidth: "350px" }}>
+            <div className="form-group mb-2">
               <label className="form-label" htmlFor="username">
                 Username
               </label>
@@ -55,12 +53,12 @@ export default function Login({ onLogin, onAdmin }) {
             </button>
           </div>
         </div>
-        <div className="text-center">
+        <div className="text-center pb-5 mb-5">
           <p>
-            Not a member?{" "}
-            <a href="signup" style={{ color: "blue" }}>
-              Register
-            </a>
+            Not a member?
+            <Link to="/signup">
+              <span style={{ color: "blue" }}> Register</span>
+            </Link>
           </p>
         </div>
       </form>

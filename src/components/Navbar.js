@@ -11,15 +11,7 @@ export default function Navbar({ signin, cart }) {
           <Link to="/" className="navbar-brand">
             <img src={home_button} width="180" height="40" alt="Home" />
           </Link>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
+          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <i className="fas fa-bars"></i>
           </button>
           <div className="collapse navbar-collapse" id="navbarNav">
