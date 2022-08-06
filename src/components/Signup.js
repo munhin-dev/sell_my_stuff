@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import ReactTooltip from "react-tooltip";
-import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import Cookies from "js-cookie";
 
@@ -27,13 +26,13 @@ export default function Signup({ onLogin }) {
       const { isLoggedIn, isAdmin } = data;
       Cookies.set("login", isLoggedIn);
       Cookies.set("admin", isAdmin);
+      onLogin(isLoggedIn);
       await Swal.fire({
         icon: "success",
         title: "Account successfully created",
         showConfirmButton: false,
         timer: 1500,
       });
-      onLogin(isLoggedIn);
       navigate("/");
     } catch (err) {
       setErrors(err.response.data.error);
@@ -76,7 +75,8 @@ export default function Signup({ onLogin }) {
                   <i className="fa fa-exclamation-circle opacity-50" data-tip data-for="registerTip" aria-hidden="true"></i>
                   <ReactTooltip id="registerTip" place="top" effect="solid" type="dark" multiline={true}>
                     - Password must be at least 5 characters long <br />
-                    - Contain one uppercase letters <br />- Contain one special case letter
+                    - Contain one uppercase letters <br />
+                    - Contain one special case letter
                   </ReactTooltip>
                 </div>
               </div>

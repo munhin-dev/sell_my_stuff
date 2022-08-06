@@ -1,17 +1,17 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Account() {
   const [userInfo, setUserInfo] = useState({});
+  const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get("/users").then(({ data }) => {
-      setUserInfo(data);
-    });
+    axios.get("/users").then(({ data }) => setUserInfo(data));
   }, []);
 
   const handleLogout = () => {
-    axios.delete("/logout").then(() => (window.location.href = "/"));
+    axios.delete("/logout").then(() => navigate("/"));
   };
 
   return (
