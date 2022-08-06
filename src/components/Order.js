@@ -10,7 +10,8 @@ export default function Order() {
 
   useEffect(() => {
     axios.get(`/order/${id}`).then(({ data }) => {
-      setItems(data);
+      const content = JSON.parse(data.content);
+      setItems(content);
       setLoading(false);
     });
   }, [id]);

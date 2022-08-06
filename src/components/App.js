@@ -50,7 +50,6 @@ function App() {
   const handleLogin = (status) => setUser(status);
   const handleAdmin = (status) => setAdmin(status);
   const handleCart = (cart) => setCart(cart);
-  const filter = (id) => products.filter((product) => product.category_id === id);
 
   if (loading) return <Loading />;
 
@@ -59,23 +58,22 @@ function App() {
       <Router>
         <Layout user={user} cart={cart}>
           <Routes>
-            <Route path="/" element={<Products products={products} title={"All"} />} />
-            <Route path="/games" element={<Products products={filter(1)} title={"Video Games"} />} />
-            <Route path="/appliances" element={<Products products={filter(2)} title={"Home Appliances"} />} />
-            <Route path="/dvd" element={<Products products={filter(3)} title={"Music and DVD"} />} />
-            <Route path="/instruments" element={<Products products={filter(4)} title={"Musical Instruments"} />} />
-            <Route path="/books" element={<Products products={filter(5)} title={"Books"} />} />
+            {["/", "/games", "/appliances", "/dvd", "/instruments", "/books"].map((path, index) => (
+              <Route key={index} path={path} element={<Products products={products} />} />
+            ))}
             <Route path="/product/:id" element={<Product onCart={handleCart} cart={cart} />} />
             <Route path="/cart" element={<Cart cart={cart} user={user} onCart={handleCart} />} />
             <Route path="/signin" element={<Login onLogin={handleLogin} onAdmin={handleAdmin} />} />
             <Route path="/signup" element={<Signup onLogin={handleLogin} />} />
             <Route path="/success" element={<Success />} />
+
             <Route element={<ProtectedRoute user={user} />}>
               <Route path="/account" element={<Account />} />
               <Route path="/checkout" element={<Cart cart={cart} user={user} onCart={handleCart} />} />
               <Route path="/orders" element={<Orders />} />
               <Route path="/orders/:id" element={<Order />} />
             </Route>
+
             <Route element={<PrivateRoute admin={admin} />}>
               <Route path="/admin" element={<Dashboard />} />
               <Route path="/admin/orders/update/:id" element={<Shipping />} />

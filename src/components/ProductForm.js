@@ -8,7 +8,7 @@ export default function ProductForm() {
   const navigate = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios.post(`/products/create/`, { input }).then(() => navigate("/admin"));
+    axios.post(`/products/new`, { input }).then(() => navigate("/admin"));
   };
 
   const handleChange = (event) => {
@@ -55,7 +55,6 @@ export default function ProductForm() {
             <label htmlFor="image">Image</label>
             <input type="text" className="form-control" name="image" id="image" onChange={handleChange} />
           </div>
-
           <button type="submit" className="btn btn-primary my-2 d-block mx-auto">
             Submit
           </button>

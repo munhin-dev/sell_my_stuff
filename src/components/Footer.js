@@ -20,7 +20,10 @@ export default function Footer() {
             <a href="https://www.google.com/" className="me-4 text-reset">
               <i className="fab fa-google"></i>
             </a>
-            <a href="https://www.instagram.com/?hl=en" className="me-4 text-reset">
+            <a
+              href="https://www.instagram.com/?hl=en"
+              className="me-4 text-reset"
+            >
               <i className="fab fa-instagram"></i>
             </a>
             <a href="https://www.linkedin.com/" className="me-4 text-reset">
@@ -39,7 +42,10 @@ export default function Footer() {
                 <h6 className="text-uppercase fw-bold mb-4">
                   <i className="fas fa-gem me-3"></i>Sell My Stuff
                 </h6>
-                <p>This is a personal website dedicated for selling personal belonging of Mun Hin.</p>
+                <p>
+                  This is a personal website dedicated for selling personal
+                  belonging of Mun Hin.
+                </p>
               </div>
 
               <div className="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
@@ -88,7 +94,8 @@ export default function Footer() {
               <div className="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
                 <h6 className="text-uppercase fw-bold mb-4">Contact</h6>
                 <p>
-                  <i className="fas fa-home me-3"></i> Subang Jaya, Selangor 47610, MY
+                  <i className="fas fa-home me-3"></i> Subang Jaya, Selangor
+                  47610, MY
                 </p>
                 <p>
                   <i className="fas fa-envelope me-3"></i>
@@ -102,7 +109,9 @@ export default function Footer() {
           </div>
         </section>
 
-        <div className="text-center p-4">© 2022 Copyright: Sell My Stuff.com</div>
+        <div className="text-center p-4">
+          © 2022 Copyright: Sell My Stuff.com
+        </div>
       </footer>
     </div>
   );
