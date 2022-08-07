@@ -5,6 +5,7 @@ import Loading from "../components/Loading";
 
 export default function Address() {
   const [address, setAddress] = useState();
+  const [errors, setErrors] = useState([]);
   const [loading, setLoading] = useState(true);
   const [input, setInput] = useState();
   const navigate = useNavigate();
@@ -17,17 +18,24 @@ export default function Address() {
         address_line2: data.address_line2,
         city: data.city,
         postal_code: data.postal_code,
-        country: data.country,
+        country: "Malaysia",
       });
       setLoading(false);
     });
   }, []);
 
+  const invalid = (value) =>
+    errors.some((err) => err.param === value) && "is-invalid";
+  const message = (value) => errors.find((err) => err.param === value)?.msg;
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    address
-      ? axios.put(`/api/address`, { input }).then(() => navigate("/account"))
-      : axios.post(`/api/address`, { input }).then(() => navigate("/account"));
+    const updateAddress = address
+      ? axios.put(`/api/address`, { ...input })
+      : axios.post(`/api/address`, { ...input });
+    updateAddress
+      .then(() => navigate("/account"))
+      .catch((err) => setErrors(err.response.data.error));
   };
 
   const handleChange = (event) => {
@@ -43,64 +51,68 @@ export default function Address() {
           className="col col-md-8 col-lg-5 col-xl-3"
           onSubmit={handleSubmit}
         >
-          <div className="form-group my-2">
+          <div className="form-group mt-4">
             <label htmlFor="address_line1">Address Line 1</label>
             <input
               type="text"
-              className="form-control"
+              className={`form-control ${invalid("address_line1")}`}
               name="address_line1"
               id="address_line1"
               onChange={handleChange}
               defaultValue={address?.address_line1}
             />
+            <div className="invalid-feedback">{message("address_line1")}</div>
           </div>
-          <div className="form-group my-2">
+          <div className="form-group mt-4">
             <label htmlFor="address_line2">Address Line 2</label>
             <input
               type="text"
-              className="form-control"
+              className={"form-control"}
               name="address_line2"
               id="address_line2 "
               onChange={handleChange}
               defaultValue={address?.address_line2}
             />
           </div>
-          <div className="form-group my-2">
+          <div className="form-group mt-4">
             <label htmlFor="city">City</label>
             <input
               type="text"
-              className="form-control"
+              className={`form-control ${invalid("city")}`}
               name="city"
               id="city"
               onChange={handleChange}
               defaultValue={address?.city}
             />
+            <div className="invalid-feedback">{message("city")}</div>
           </div>
-          <div className="form-group my-2">
+          <div className="form-group mt-4">
             <label htmlFor="postal_code">Postal Code</label>
             <input
               type="text"
-              className="form-control"
+              className={`form-control ${invalid("postal_code")}`}
               name="postal_code"
               id="postal_code"
               onChange={handleChange}
               defaultValue={address?.postal_code}
             />
+            <div className="invalid-feedback">{message("postal_code")}</div>
           </div>
-          <div className="form-group my-2">
-            <label htmlFor="image">Country</label>
+          <div className="form-group mt-4">
+            <label htmlFor="country">Country</label>
             <input
               type="text"
-              className="form-control"
+              className={`form-control ${invalid("country")}`}
               name="country"
               id="country"
-              onChange={handleChange}
-              defaultValue={address?.country}
+              value="Malaysia"
+              disabled
             />
+            <div className="invalid-feedback">{message("country")}</div>
           </div>
           <button
             type="submit"
-            className="btn btn-primary my-2 d-block mx-auto"
+            className="btn btn-primary mt-4 d-block mx-auto"
           >
             Submit
           </button>

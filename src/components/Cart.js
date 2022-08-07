@@ -43,7 +43,7 @@ export default function Cart({ cart, onCart, user }) {
             text: "Shipping address not found.",
             showConfirmButton: false,
             timer: 1500,
-          }).then(() => navigate("api/account"));
+          }).then(() => navigate("/account"));
         } else {
           console.log(err);
         }
