@@ -39,7 +39,10 @@ const userValidationRules = () => {
           return Promise.reject("Username already in use");
         }
       }),
-    body("password", "Password does not meet minimum requirements").isStrongPassword({
+    body(
+      "password",
+      "Password does not meet minimum requirements"
+    ).isStrongPassword({
       minLength: 5,
       minLowercase: 0,
       minUppercase: 1,
@@ -58,6 +61,19 @@ const userValidationRules = () => {
   ];
 };
 
+const addressValidationRules = () => {
+  return [
+    body("address_line1").trim().notEmpty(),
+    body("city").trim().notEmpty(),
+    body("postal_code")
+      .trim()
+      .notEmpty()
+      .isPostalCode("MY")
+      .withMessage("Invalid postal code provided"),
+    body("country").trim().notEmpty().equals("Malaysia"),
+  ];
+};
+
 const validate = (req, res, next) => {
   const result = validationResult(req);
   if (result.isEmpty()) {
@@ -68,5 +84,6 @@ const validate = (req, res, next) => {
 
 module.exports = {
   userValidationRules,
+  addressValidationRules,
   validate,
 };

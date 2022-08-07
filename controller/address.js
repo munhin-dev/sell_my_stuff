@@ -12,7 +12,7 @@ const address = {
   async updateUserAddress(req, res, next) {
     try {
       const customerId = req.session.userId;
-      const { address_line1, address_line2, city, postal_code, country } = req.body.input
+      const { address_line1, address_line2, city, postal_code, country } = req.body
       await models.address.update( customerId, address_line1, address_line2, city, postal_code, country);
       res.status(200).json({ message: "Address Updated Successfully!" });
     } catch (error) {
@@ -22,7 +22,7 @@ const address = {
   async createUserAddress(req, res, next) {
     try {
       const customerId = req.session.userId;
-      const { address_line1, address_line2, city, postal_code, country } = req.body.input;
+      const { address_line1, address_line2, city, postal_code, country } = req.body;
       await models.address.create(customerId, address_line1, address_line2, city, postal_code, country);
       res.status(200).json({ message: "Address Created Successfully!" });
     } catch (error) {
