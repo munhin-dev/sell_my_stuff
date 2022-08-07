@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Loading from "../components/Loading";
 
 export default function Address() {
-  const [address, setAddress] = useState();
+  const [address, setAddress] = useState(null);
   const [errors, setErrors] = useState([]);
   const [loading, setLoading] = useState(true);
   const [input, setInput] = useState();
@@ -39,7 +39,10 @@ export default function Address() {
   };
 
   const handleChange = (event) => {
-    setInput({ ...input, [event.target.name]: event.target.value });
+    setInput((values) => ({
+      ...values,
+      [event.target.name]: event.target.value,
+    }));
   };
 
   if (loading) return <Loading />;
@@ -59,7 +62,7 @@ export default function Address() {
               name="address_line1"
               id="address_line1"
               onChange={handleChange}
-              defaultValue={address?.address_line1}
+              value={input.address_line1}
             />
             <div className="invalid-feedback">{message("address_line1")}</div>
           </div>
@@ -71,7 +74,7 @@ export default function Address() {
               name="address_line2"
               id="address_line2 "
               onChange={handleChange}
-              defaultValue={address?.address_line2}
+              value={input.address_line2}
             />
           </div>
           <div className="form-group mt-4">
@@ -82,7 +85,7 @@ export default function Address() {
               name="city"
               id="city"
               onChange={handleChange}
-              defaultValue={address?.city}
+              value={input.city}
             />
             <div className="invalid-feedback">{message("city")}</div>
           </div>
@@ -94,7 +97,7 @@ export default function Address() {
               name="postal_code"
               id="postal_code"
               onChange={handleChange}
-              defaultValue={address?.postal_code}
+              value={input.postal_code}
             />
             <div className="invalid-feedback">{message("postal_code")}</div>
           </div>
@@ -105,7 +108,7 @@ export default function Address() {
               className={`form-control ${invalid("country")}`}
               name="country"
               id="country"
-              value="Malaysia"
+              value={input.country}
               disabled
             />
             <div className="invalid-feedback">{message("country")}</div>

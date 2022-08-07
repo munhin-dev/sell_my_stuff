@@ -22,8 +22,8 @@ const user = {
     try {
       const userId = req.session.userId;
       const { first_name, last_name, mobile } = req.body;
-      const user = await models.user.update(userId, first_name, last_name, mobile);
-      res.status(200).json(user);
+      await models.user.update(first_name, last_name, mobile, userId);
+      res.status(200).json({ message: "Account update successfully." });
     } catch (error) {
       next(error);
     }

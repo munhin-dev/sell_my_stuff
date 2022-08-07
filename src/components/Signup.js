@@ -6,23 +6,24 @@ import Swal from "sweetalert2";
 import Cookies from "js-cookie";
 
 export default function Signup({ onLogin }) {
-  const [inputs, setInputs] = useState({});
+  const [input, setInput] = useState({});
   const [errors, setErrors] = useState([]);
   const navigate = useNavigate();
 
   const handleChange = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    setInputs((values) => ({ ...values, [name]: value }));
+    setInput((values) => ({
+      ...values,
+      [event.target.name]: event.target.value,
+    }));
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await axios.post("/api/register", { ...inputs });
-      const { username, password } = inputs;
-      await axios.post("/api/login", { username, password });
-      const { data } = await axios.get("/api/authenticate");
+      await axios.post("/register", { ...input });
+      const { username, password } = input;
+      await axios.post("/login", { username, password });
+      const { data } = await axios.get("/authenticate");
       const { isLoggedIn, isAdmin } = data;
       Cookies.set("login", isLoggedIn);
       Cookies.set("admin", isAdmin);

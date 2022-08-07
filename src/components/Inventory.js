@@ -29,7 +29,9 @@ export default function Shipping() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios.put(`/api/products/update/${id}`, { input }).then(() => navigate("/admin"));
+    axios
+      .put(`/api/products/update/${id}`, { input })
+      .then(() => navigate("/admin"));
   };
 
   const handleChange = (event) => {
@@ -53,10 +55,20 @@ export default function Shipping() {
   return (
     <div>
       <div className="container my-5 d-flex justify-content-center">
-        <form className="col col-md-8 col-lg-5 col-xl-3" onSubmit={handleSubmit}>
+        <form
+          className="col col-md-8 col-lg-5 col-xl-3"
+          onSubmit={handleSubmit}
+        >
           <div className="form-group my-2">
             <label htmlFor="name">Name</label>
-            <input type="text" className="form-control" name="name" id="name" onChange={handleChange} defaultValue={product?.name} />
+            <input
+              type="text"
+              className="form-control"
+              name="name"
+              id="name"
+              onChange={handleChange}
+              value={input.description}
+            />
           </div>
           <div className="form-group my-2">
             <label htmlFor="description">Description</label>
@@ -66,27 +78,55 @@ export default function Shipping() {
               name="description"
               id="description"
               onChange={handleChange}
-              defaultValue={product?.description}
+              value={input.name}
             />
           </div>
           <div className="form-group my-2">
             <label htmlFor="category">Category</label>
-            <Select options={options} defaultValue={options[product?.category_id - 1]} onChange={handleChange} />
+            <Select
+              options={options}
+              defaultValue={options[product?.category_id - 1]}
+              onChange={handleChange}
+            />
           </div>
           <div className="form-group my-2">
             <label htmlFor="quantity">Quantity</label>
-            <input type="text" className="form-control" name="quantity" id="quantity" onChange={handleChange} defaultValue={product?.quantity} />
+            <input
+              type="text"
+              className="form-control"
+              name="quantity"
+              id="quantity"
+              onChange={handleChange}
+              value={input.quantity}
+            />
           </div>
           <div className="form-group my-2">
             <label htmlFor="price">Price</label>
-            <input type="text" className="form-control" name="price" id="price" onChange={handleChange} defaultValue={product?.price} />
+            <input
+              type="text"
+              className="form-control"
+              name="price"
+              id="price"
+              onChange={handleChange}
+              value={input.price}
+            />
           </div>
           <div className="form-group my-2">
             <label htmlFor="image">Image</label>
-            <input type="text" className="form-control" name="image" id="image" onChange={handleChange} defaultValue={product?.image} />
+            <input
+              type="text"
+              className="form-control"
+              name="image"
+              id="image"
+              onChange={handleChange}
+              value={input.image}
+            />
           </div>
 
-          <button type="submit" className="btn btn-primary my-2 d-block mx-auto">
+          <button
+            type="submit"
+            className="btn btn-primary my-2 d-block mx-auto"
+          >
             Submit
           </button>
         </form>

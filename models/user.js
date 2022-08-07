@@ -31,7 +31,7 @@ const user = {
     return res.rows[0];
   },
   async update(first_name, last_name, mobile, id) {
-    return await db.query(
+    return db.query(
       "UPDATE customer SET first_name = $1, last_name = $2, mobile = $3 WHERE id = $4",
       [first_name, last_name, mobile, id]
     );

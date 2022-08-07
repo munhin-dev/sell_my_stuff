@@ -20,6 +20,7 @@ import Inventory from "./Inventory";
 import Signup from "./Signup";
 import ProductForm from "./NewProduct";
 import Address from "./Address"
+import User from "./User"
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -73,7 +74,7 @@ function App() {
             <Route element={<ProtectedRoute user={user} />}>
               <Route path="/account" element={<Account onLogout={handleUser}/> } />
               <Route path="/account/address/edit" element={<Address />} />
-              <Route path="/account/user/edit" element={<Address />} />
+              <Route path="/account/user/edit" element={<User />} />
               <Route path="/checkout" element={<Cart cart={cart} user={user} onCart={handleCart} />} />
               <Route path="/orders" element={<Orders />} />
               <Route path="/orders/:id" element={<Order />} />
