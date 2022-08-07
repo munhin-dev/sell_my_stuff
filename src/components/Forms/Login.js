@@ -29,7 +29,7 @@ export default function LoginForm({ onLogin, onAdmin }) {
   const handlePassword = (event) => setPassword(event.target.value);
 
   return (
-    <div>
+    <>
       <div className="alert alert-danger" role="alert" style={{ visibility: error ? "visible" : "hidden", minHeight: "65.58px" }}>
         {error}
       </div>
@@ -62,6 +62,6 @@ export default function LoginForm({ onLogin, onAdmin }) {
           </p>
         </div>
       </form>
-    </div>
+    </>
   );
 }

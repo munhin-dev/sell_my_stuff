@@ -1,3 +1,2 @@
-import PrivateRoute from "./PrivateRoute";
-import ProtectedRoute from "./ProtectedRoute";
-export { PrivateRoute, ProtectedRoute };
+export { default as PrivateRoute } from "./PrivateRoute";
+export { default as ProtectedRoute } from "./ProtectedRoute";

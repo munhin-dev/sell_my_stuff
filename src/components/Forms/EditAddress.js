@@ -43,7 +43,7 @@ export default function EditAddress() {
   if (loading) return <Loading />;
 
   return (
-    <div>
+    
       <div className="container my-5 d-flex justify-content-center">
         <form className="col col-md-8 col-lg-5 col-xl-3" onSubmit={handleSubmit}>
           <div className="form-group mt-4">
@@ -75,6 +75,6 @@ export default function EditAddress() {
           </button>
         </form>
       </div>
-    </div>
+    
   );
 }

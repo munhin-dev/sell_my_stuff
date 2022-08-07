@@ -51,39 +51,37 @@ export default function EditProduct() {
   if (loading) return <Loading />;
 
   return (
-    <div>
-      <div className="container my-5 d-flex justify-content-center">
-        <form className="col col-md-8 col-lg-5 col-xl-3" onSubmit={handleSubmit}>
-          <div className="form-group my-2">
-            <label htmlFor="name">Name</label>
-            <input type="text" className="form-control" name="name" id="name" onChange={handleChange} value={input.description} />
-          </div>
-          <div className="form-group my-2">
-            <label htmlFor="description">Description</label>
-            <input type="text" className="form-control" name="description" id="description" onChange={handleChange} value={input.name} />
-          </div>
-          <div className="form-group my-2">
-            <label htmlFor="category">Category</label>
-            <Select options={options} defaultValue={options[product?.category_id - 1]} onChange={handleChange} />
-          </div>
-          <div className="form-group my-2">
-            <label htmlFor="quantity">Quantity</label>
-            <input type="text" className="form-control" name="quantity" id="quantity" onChange={handleChange} value={input.quantity} />
-          </div>
-          <div className="form-group my-2">
-            <label htmlFor="price">Price</label>
-            <input type="text" className="form-control" name="price" id="price" onChange={handleChange} value={input.price} />
-          </div>
-          <div className="form-group my-2">
-            <label htmlFor="image">Image</label>
-            <input type="text" className="form-control" name="image" id="image" onChange={handleChange} value={input.image} />
-          </div>
+    <div className="container my-5 d-flex justify-content-center">
+      <form className="col col-md-8 col-lg-5 col-xl-3" onSubmit={handleSubmit}>
+        <div className="form-group my-2">
+          <label htmlFor="name">Name</label>
+          <input type="text" className="form-control" name="name" id="name" onChange={handleChange} value={input.description} />
+        </div>
+        <div className="form-group my-2">
+          <label htmlFor="description">Description</label>
+          <input type="text" className="form-control" name="description" id="description" onChange={handleChange} value={input.name} />
+        </div>
+        <div className="form-group my-2">
+          <label htmlFor="category">Category</label>
+          <Select options={options} defaultValue={options[product?.category_id - 1]} onChange={handleChange} />
+        </div>
+        <div className="form-group my-2">
+          <label htmlFor="quantity">Quantity</label>
+          <input type="text" className="form-control" name="quantity" id="quantity" onChange={handleChange} value={input.quantity} />
+        </div>
+        <div className="form-group my-2">
+          <label htmlFor="price">Price</label>
+          <input type="text" className="form-control" name="price" id="price" onChange={handleChange} value={input.price} />
+        </div>
+        <div className="form-group my-2">
+          <label htmlFor="image">Image</label>
+          <input type="text" className="form-control" name="image" id="image" onChange={handleChange} value={input.image} />
+        </div>
 
-          <button type="submit" className="btn btn-primary my-2 d-block mx-auto">
-            Submit
-          </button>
-        </form>
-      </div>
+        <button type="submit" className="btn btn-primary my-2 d-block mx-auto">
+          Submit
+        </button>
+      </form>
     </div>
   );
 }

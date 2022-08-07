@@ -28,38 +28,36 @@ export default function NewProduct() {
   ];
 
   return (
-    <div>
-      <div className="container my-5 d-flex justify-content-center">
-        <form className="col col-md-8 col-lg-5 col-xl-3" onSubmit={handleSubmit}>
-          <div className="form-group my-2">
-            <label htmlFor="name">Name</label>
-            <input type="text" className="form-control" name="name" id="name" onChange={handleChange} />
-          </div>
-          <div className="form-group my-2">
-            <label htmlFor="description">Description</label>
-            <input type="text" className="form-control" name="description" id="description" onChange={handleChange} />
-          </div>
-          <div className="form-group my-2">
-            <label htmlFor="category">Category</label>
-            <Select options={options} onChange={handleChange} />
-          </div>
-          <div className="form-group my-2">
-            <label htmlFor="quantity">Quantity</label>
-            <input type="text" className="form-control" name="quantity" id="quantity" onChange={handleChange} />
-          </div>
-          <div className="form-group my-2">
-            <label htmlFor="price">Price</label>
-            <input type="text" className="form-control" name="price" id="price" onChange={handleChange} />
-          </div>
-          <div className="form-group my-2">
-            <label htmlFor="image">Image</label>
-            <input type="text" className="form-control" name="image" id="image" onChange={handleChange} />
-          </div>
-          <button type="submit" className="btn btn-primary my-2 d-block mx-auto">
-            Submit
-          </button>
-        </form>
-      </div>
+    <div className="container my-5 d-flex justify-content-center">
+      <form className="col col-md-8 col-lg-5 col-xl-3" onSubmit={handleSubmit}>
+        <div className="form-group my-2">
+          <label htmlFor="name">Name</label>
+          <input type="text" className="form-control" name="name" id="name" onChange={handleChange} />
+        </div>
+        <div className="form-group my-2">
+          <label htmlFor="description">Description</label>
+          <input type="text" className="form-control" name="description" id="description" onChange={handleChange} />
+        </div>
+        <div className="form-group my-2">
+          <label htmlFor="category">Category</label>
+          <Select options={options} onChange={handleChange} />
+        </div>
+        <div className="form-group my-2">
+          <label htmlFor="quantity">Quantity</label>
+          <input type="text" className="form-control" name="quantity" id="quantity" onChange={handleChange} />
+        </div>
+        <div className="form-group my-2">
+          <label htmlFor="price">Price</label>
+          <input type="text" className="form-control" name="price" id="price" onChange={handleChange} />
+        </div>
+        <div className="form-group my-2">
+          <label htmlFor="image">Image</label>
+          <input type="text" className="form-control" name="image" id="image" onChange={handleChange} />
+        </div>
+        <button type="submit" className="btn btn-primary my-2 d-block mx-auto">
+          Submit
+        </button>
+      </form>
     </div>
   );
 }

@@ -55,7 +55,7 @@ export default function Cart({ cart, onCart, user }) {
 
   if (cart.length === 0) {
     return (
-      <div>
+      <>
         <div className="container my-4">
           <h2> Shopping Bag</h2>
         </div>
@@ -66,12 +66,12 @@ export default function Cart({ cart, onCart, user }) {
             </div>
           </div>
         </div>
-      </div>
+      </>
     );
   }
 
   return (
-    <div>
+    <>
       <div className="container my-4">
         <h2> Shopping Bag</h2>
       </div>
@@ -139,6 +139,6 @@ export default function Cart({ cart, onCart, user }) {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

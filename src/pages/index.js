@@ -1,5 +1,4 @@
-import Dashboard from "./Dashboard";
-import Loading from "./Loading";
-import Restricted from "./Restricted";
-import Success from "./Success";
-export { Dashboard, Loading, Restricted, Success };
+export { default as Dashboard } from "./Dashboard";
+export { default as Loading } from "./Loading";
+export { default as Restricted } from "./Restricted";
+export { default as Success } from "./Success";

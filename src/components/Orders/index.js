@@ -1,3 +1,2 @@
-import Order from "./Order";
-import Orders from "./Orders";
-export { Order, Orders };
+export { default as Order } from "./Order";
+export { default as Orders } from "./Orders";
