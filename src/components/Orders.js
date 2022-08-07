@@ -9,7 +9,7 @@ export default function Orders() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get("/order").then(({ data }) => {
+    axios.get("/api/order").then(({ data }) => {
       setOrders(data);
       setLoading(false);
     });

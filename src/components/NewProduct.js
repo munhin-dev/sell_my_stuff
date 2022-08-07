@@ -8,7 +8,7 @@ export default function ProductForm() {
   const navigate = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios.post(`/products/new`, { input }).then(() => navigate("/admin"));
+    axios.post(`/api/products/new`, { input }).then(() => navigate("/admin"));
   };
 
   const handleChange = (event) => {

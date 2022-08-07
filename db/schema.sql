@@ -62,14 +62,6 @@ CREATE TABLE product_category (
     deleted_at timestamp
 );
 
-CREATE TABLE shopping_session (
-    id serial PRIMARY KEY,
-    customer_id int references customer(id),
-    total decimal NOT NULL,
-    created_at timestamp DEFAULT now(),
-    modified_at timestamp
-);
-
 CREATE TABLE cart_item (
     id serial PRIMARY KEY,
     customer_id int references customer(id),
@@ -127,4 +119,3 @@ VALUES
         '47610',
         'Malaysia'
     );
-

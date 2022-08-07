@@ -13,15 +13,16 @@ const user = {
   async get(req, res, next) {
     try {
       const user = await models.user.getByUserId(req.session.userId);
-      const address = await models.address.getByCustomerId(req.session.userId);
-      res.status(200).json({ user, address });
+      res.status(200).json(user);
     } catch (error) {
       next(error);
     }
   },
   async update(req, res, next) {
     try {
-      const user = await models.user.update(req.session.userId, req.body);
+      const userId = req.session.userId;
+      const { first_name, last_name, mobile } = req.body;
+      const user = await models.user.update(userId, first_name, last_name, mobile);
       res.status(200).json(user);
     } catch (error) {
       next(error);

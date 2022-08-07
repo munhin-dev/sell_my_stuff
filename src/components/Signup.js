@@ -19,10 +19,10 @@ export default function Signup({ onLogin }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await axios.post("/register", { ...inputs });
+      await axios.post("/api/register", { ...inputs });
       const { username, password } = inputs;
-      await axios.post("/login", { username, password });
-      const { data } = await axios.get("/authenticate");
+      await axios.post("/api/login", { username, password });
+      const { data } = await axios.get("/api/authenticate");
       const { isLoggedIn, isAdmin } = data;
       Cookies.set("login", isLoggedIn);
       Cookies.set("admin", isAdmin);

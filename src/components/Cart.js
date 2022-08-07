@@ -25,7 +25,7 @@ export default function Cart({ cart, onCart, user }) {
     if (!user) return;
     let items = cart.map(({ item, quantity }) => ({ id: item.id, quantity }));
     axios
-      .post("/checkout", { items })
+      .post("/api/checkout", { items })
       .then(({ data }) => (window.location = data.url))
       .catch((err) => {
         if (err.response.data.error === "Insufficient Inventory") {
@@ -43,7 +43,7 @@ export default function Cart({ cart, onCart, user }) {
             text: "Shipping address not found.",
             showConfirmButton: false,
             timer: 1500,
-          }).then(() => navigate("/account"));
+          }).then(() => navigate("api/account"));
         } else {
           console.log(err);
         }

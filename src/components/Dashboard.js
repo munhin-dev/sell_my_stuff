@@ -10,8 +10,8 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const orders = axios.get("/dashboard/orders");
-    const products = axios.get("/products");
+    const orders = axios.get("/api/dashboard/orders");
+    const products = axios.get("/api/products");
     Promise.all([orders, products]).then(([orders, products]) => {
       setOrders(orders.data);
       setProducts(products.data);

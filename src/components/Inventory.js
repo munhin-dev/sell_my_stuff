@@ -13,7 +13,7 @@ export default function Shipping() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`/products/${id}`).then(({ data }) => {
+    axios.get(`/api/products/${id}`).then(({ data }) => {
       setProduct(data);
       setInput({
         name: data.name,
@@ -29,7 +29,7 @@ export default function Shipping() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios.put(`/products/update/${id}`, { input }).then(() => navigate("/admin"));
+    axios.put(`/api/products/update/${id}`, { input }).then(() => navigate("/admin"));
   };
 
   const handleChange = (event) => {

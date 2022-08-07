@@ -10,7 +10,7 @@ export default function Product({ onCart, cart }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {;
-    axios.get(`/products/${id}`).then(({ data }) => {
+    axios.get(`/api/products/${id}`).then(({ data }) => {
       setLoading(false);
       setItem(data);
     });

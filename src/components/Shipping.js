@@ -10,7 +10,7 @@ export default function Shipping() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios.put(`/order/update/${id}`, { tracking_number: input.tracking_number, shipped: JSON.parse(input.shipped) }).then(() => navigate("/admin"));
+    axios.put(`/api/order/update/${id}`, { tracking_number: input.tracking_number, shipped: JSON.parse(input.shipped) }).then(() => navigate("/admin"));
   };
 
   const handleChange = (event) => {

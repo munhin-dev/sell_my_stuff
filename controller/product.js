@@ -1,7 +1,7 @@
 const models = require("../models");
 
 const product = {
-  async get(req, res, next) {
+  async getAllProducts(req, res, next) {
     try {
       const products = await models.product.getAll();
       res.status(200).json(products);
@@ -9,7 +9,7 @@ const product = {
       next(error);
     }
   },
-  async getById(req, res, next) {
+  async getOneByProductId(req, res, next) {
     try {
       const product = await models.product.getOneById(req.params.id);
       res.status(200).json(product);
@@ -17,7 +17,7 @@ const product = {
       next(error);
     }
   },
-  async update(req, res, next) {
+  async updateProductById(req, res, next) {
     try {
       const item_id = req.params.id;
       const { name, description, category, quantity, price, image } = req.body.input;
@@ -28,7 +28,7 @@ const product = {
     }
   },
 
-  async create(req, res, next) {
+  async createProduct(req, res, next) {
     try {
       const { name, description, category, quantity, price, image } = req.body.input;
       await models.product.addProduct(name, description, category, quantity, price, image);

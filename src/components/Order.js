@@ -9,7 +9,7 @@ export default function Order() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get(`/order/${id}`).then(({ data }) => {
+    axios.get(`/api/order/${id}`).then(({ data }) => {
       const content = JSON.parse(data.content);
       setItems(content);
       setLoading(false);

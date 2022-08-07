@@ -18,7 +18,8 @@ import Shipping from "./Shipping";
 import Cookies from "js-cookie";
 import Inventory from "./Inventory";
 import Signup from "./Signup";
-import ProductForm from "./ProductForm";
+import ProductForm from "./NewProduct";
+import Address from "./Address"
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -28,12 +29,14 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get("/products").then(({ data }) => {
+    axios.get("/api/products").then(({ data }) => {
       setProducts(data);
       setLoading(false);
     });
-    axios.get("/cart").then(({ data }) => setCart(JSON.parse(data.content)));
-    axios.get("/authenticate").then(({ data: { isLoggedIn, isAdmin } }) => {
+    axios
+      .get("/api/cart")
+      .then(({ data }) => setCart(JSON.parse(data.content)));
+    axios.get("/api/authenticate").then(({ data: { isLoggedIn, isAdmin } }) => {
       setUser(isLoggedIn);
       setAdmin(isAdmin);
       if (!isLoggedIn) {
@@ -44,10 +47,10 @@ function App() {
   }, []);
 
   useEffect(() => {
-    axios.post("/cart", { cart: JSON.stringify(cart) });
+      axios.post("/api/cart", { cart: JSON.stringify(cart) });
   }, [cart]);
 
-  const handleLogin = (status) => setUser(status);
+  const handleUser = (status) => setUser(status);
   const handleAdmin = (status) => setAdmin(status);
   const handleCart = (cart) => setCart(cart);
 
@@ -63,12 +66,14 @@ function App() {
             ))}
             <Route path="/product/:id" element={<Product onCart={handleCart} cart={cart} />} />
             <Route path="/cart" element={<Cart cart={cart} user={user} onCart={handleCart} />} />
-            <Route path="/signin" element={<Login onLogin={handleLogin} onAdmin={handleAdmin} />} />
-            <Route path="/signup" element={<Signup onLogin={handleLogin} />} />
+            <Route path="/signin" element={<Login onLogin={handleUser} onAdmin={handleAdmin} />} />
+            <Route path="/signup" element={<Signup onLogin={handleUser} />} />
             <Route path="/success" element={<Success />} />
 
             <Route element={<ProtectedRoute user={user} />}>
-              <Route path="/account" element={<Account />} />
+              <Route path="/account" element={<Account onLogout={handleUser}/> } />
+              <Route path="/account/address/edit" element={<Address />} />
+              <Route path="/account/user/edit" element={<Address />} />
               <Route path="/checkout" element={<Cart cart={cart} user={user} onCart={handleCart} />} />
               <Route path="/orders" element={<Orders />} />
               <Route path="/orders/:id" element={<Order />} />
