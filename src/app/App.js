@@ -14,8 +14,8 @@ import Cookies from "js-cookie";
 function App() {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
-  const [user, setUser] = useState(Cookies.get("login") === "true");
-  const [admin, setAdmin] = useState(Cookies.get("admin") === "true");
+  const [user, setUser] = useState(JSON.parse(Cookies.get("login") || null));
+  const [admin, setAdmin] = useState(JSON.parse(Cookies.get("admin") | null));
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
