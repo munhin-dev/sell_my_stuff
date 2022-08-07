@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import Loading from "./Loading";
+import Loading from "../../pages/Loading";
 
 export default function Product({ onCart, cart }) {
   const { id } = useParams();
@@ -9,7 +9,7 @@ export default function Product({ onCart, cart }) {
   const [quantity, setQuantity] = useState(1);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {;
+  useEffect(() => {
     axios.get(`/api/products/${id}`).then(({ data }) => {
       setLoading(false);
       setItem(data);

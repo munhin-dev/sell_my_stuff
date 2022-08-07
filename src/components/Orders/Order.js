@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import Loading from "./Loading";
+import Loading from "../../pages/Loading";
 
 export default function Order() {
   const { id } = useParams();
@@ -27,10 +27,7 @@ export default function Order() {
         <div className="row">
           {items.map(({ item, quantity }) => {
             return (
-              <div
-                className="card flex-row align-self-start p-4 my-2"
-                key={item.id}
-              >
+              <div className="card flex-row align-self-start p-4 my-2" key={item.id}>
                 <img
                   src={item.image}
                   className="card-image-top align-self-center"

@@ -20,27 +20,6 @@ CREATE TABLE customer_address (
     country text NOT NULL
 );
 
-CREATE TABLE customer_payment (
-    id serial PRIMARY KEY,
-    customer_id int references customer(id),
-    payment_type text NOT NULL,
-    provider text NOT NULL,
-    account_no int NOT NULL,
-    expiry date NOT NULL
-);
-
-CREATE TABLE admin (
-    id serial PRIMARY KEY,
-    username text NOT NULL,
-    password text NOT NULL,
-    email text NOT NULL,
-    first_name text NOT NULL,
-    last_name text NOT NULL,
-    last_login timestamp,
-    created_at timestamp DEFAULT now(),
-    modified_at timestamp
-);
-
 CREATE TABLE product (
     id serial PRIMARY KEY,
     name text NOT NULL,
@@ -79,43 +58,3 @@ CREATE TABLE order_details (
     created_at timestamp DEFAULT now(),
     modified_at timestamp
 );
-
-CREATE TABLE payment_details (
-    id serial PRIMARY KEY,
-    amount int NOT NULL,
-    provider text NOT NULL,
-    state text NOT NULL,
-    created_at timestamp DEFAULT now(),
-    modified_at timestamp
-);
-
-CREATE TABLE shippers(
-    id serial PRIMARY KEY,
-    name text NOT NULL
-);
-
-CREATE TABLE order_items (
-    id serial PRIMARY KEY,
-    order_id int references order_details(id),
-    product_id int references product(id),
-    quantity int,
-    created_at timestamp DEFAULT now(),
-    modified_at timestamp
-);
-
-INSERT INTO
-    customer_address (
-        address_line1,
-        address_line2,
-        city,
-        postal_code,
-        country
-    )
-VALUES
-    (
-        'K-04-005, Good Year Court 1',
-        'USJ6/1, Persiaran Kewajipan',
-        'Subang Jaya',
-        '47610',
-        'Malaysia'
-    );

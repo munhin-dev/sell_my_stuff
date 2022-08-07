@@ -1,5 +1,5 @@
 import React from "react";
-import home_button from "../img/home_button.png";
+import homeButton from "../assets/home_button.png";
 import { Link } from "react-router-dom";
 
 export default function Navbar({ signin, cart }) {
@@ -9,7 +9,7 @@ export default function Navbar({ signin, cart }) {
       <nav className="navbar navbar-expand-xl navbar-light bg-light">
         <div className="container">
           <Link to="/" className="navbar-brand">
-            <img src={home_button} width="180" height="40" alt="Home" />
+            <img src={homeButton} width="180" height="40" alt="Home" />
           </Link>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <i className="fas fa-bars"></i>

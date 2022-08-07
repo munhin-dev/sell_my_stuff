@@ -1,26 +1,15 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useEffect, useState } from "react";
 import axios from "axios";
-import ProtectedRoute from "../utils/ProtectedRoute";
-import PrivateRoute from "../utils/PrivateRoute";
-import Layout from "../utils/Layout";
-import Account from "./Account";
-import Cart from "./Cart";
-import Loading from "./Loading";
-import Login from "./Login";
-import Order from "./Order";
-import Orders from "./Orders";
-import Product from "./Product";
-import Success from "./Success";
-import Products from "./Products";
-import Dashboard from "./Dashboard";
-import Shipping from "./Shipping";
+import { useEffect, useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { ProtectedRoute, PrivateRoute } from "../routes";
+import { Dashboard, Loading, Success } from "../pages";
+import Layout from "../layout";
+import Account from "../components/Account";
+import Cart from "../components/Cart";
+import { Order, Orders } from "../components/Orders";
+import { Product, Products } from "../components/Products";
+import * as Form from "../components/Forms";
 import Cookies from "js-cookie";
-import Inventory from "./Inventory";
-import Signup from "./Signup";
-import ProductForm from "./NewProduct";
-import Address from "./Address"
-import User from "./User"
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -34,9 +23,7 @@ function App() {
       setProducts(data);
       setLoading(false);
     });
-    axios
-      .get("/api/cart")
-      .then(({ data }) => setCart(JSON.parse(data.content)));
+    axios.get("/api/cart").then(({ data }) => setCart(JSON.parse(data.content)));
     axios.get("/api/authenticate").then(({ data: { isLoggedIn, isAdmin } }) => {
       setUser(isLoggedIn);
       setAdmin(isAdmin);
@@ -48,7 +35,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-      axios.post("/api/cart", { cart: JSON.stringify(cart) });
+    axios.post("/api/cart", { cart: JSON.stringify(cart) });
   }, [cart]);
 
   const handleUser = (status) => setUser(status);
@@ -67,14 +54,14 @@ function App() {
             ))}
             <Route path="/product/:id" element={<Product onCart={handleCart} cart={cart} />} />
             <Route path="/cart" element={<Cart cart={cart} user={user} onCart={handleCart} />} />
-            <Route path="/signin" element={<Login onLogin={handleUser} onAdmin={handleAdmin} />} />
-            <Route path="/signup" element={<Signup onLogin={handleUser} />} />
+            <Route path="/signin" element={<Form.Login onLogin={handleUser} onAdmin={handleAdmin} />} />
+            <Route path="/signup" element={<Form.Registration onLogin={handleUser} />} />
             <Route path="/success" element={<Success />} />
 
             <Route element={<ProtectedRoute user={user} />}>
-              <Route path="/account" element={<Account onLogout={handleUser}/> } />
-              <Route path="/account/address/edit" element={<Address />} />
-              <Route path="/account/user/edit" element={<User />} />
+              <Route path="/account" element={<Account onLogout={handleUser} />} />
+              <Route path="/account/address/edit" element={<Form.EditAddress />} />
+              <Route path="/account/user/edit" element={<Form.EditUser />} />
               <Route path="/checkout" element={<Cart cart={cart} user={user} onCart={handleCart} />} />
               <Route path="/orders" element={<Orders />} />
               <Route path="/orders/:id" element={<Order />} />
@@ -82,9 +69,9 @@ function App() {
 
             <Route element={<PrivateRoute admin={admin} />}>
               <Route path="/admin" element={<Dashboard />} />
-              <Route path="/admin/orders/update/:id" element={<Shipping />} />
-              <Route path="/admin/product/update/:id" element={<Inventory />} />
-              <Route path="/admin/product/new" element={<ProductForm />} />
+              <Route path="/admin/orders/update/:id" element={<Form.UpdateShipping />} />
+              <Route path="/admin/product/update/:id" element={<Form.UpdateProduct />} />
+              <Route path="/admin/product/new" element={<Form.NewProduct />} />
             </Route>
           </Routes>
         </Layout>

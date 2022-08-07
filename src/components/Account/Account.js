@@ -1,7 +1,7 @@
 import axios from "axios";
-import { useState, useEffect, Fragment } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import Loading from "./Loading";
+import { Loading } from "../../pages";
 
 export default function Account({ onLogout }) {
   const [userInfo, setUserInfo] = useState({});
@@ -48,16 +48,10 @@ export default function Account({ onLogout }) {
         <div className="card m-4" style={{ width: "25rem" }}>
           <div className="card-body">
             <h5 className="card-title">Address Information</h5>
-            <p className="card-text">
-              Address Line 1: {userInfo.address?.address_line1}
-            </p>
-            <p className="card-text">
-              Address Line 2: {userInfo.address?.address_line2}
-            </p>
+            <p className="card-text">Address Line 1: {userInfo.address?.address_line1}</p>
+            <p className="card-text">Address Line 2: {userInfo.address?.address_line2}</p>
             <p className="card-text">City: {userInfo.address?.city}</p>
-            <p className="card-text">
-              Postal Code: {userInfo.address?.postal_code}
-            </p>
+            <p className="card-text">Postal Code: {userInfo.address?.postal_code}</p>
             <p className="card-text">Country: {userInfo.address?.country}</p>
 
             <Link to="/account/address/edit">
@@ -69,11 +63,7 @@ export default function Account({ onLogout }) {
         </div>
       </div>
       <div className="row justify-content-center mb-5">
-        <button
-          type="button"
-          className=" col-auto btn btn-primary"
-          onClick={handleLogout}
-        >
+        <button type="button" className=" col-auto btn btn-primary" onClick={handleLogout}>
           Logout
         </button>
       </div>

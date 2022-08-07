@@ -17,9 +17,9 @@ const order = {
     return db.query("UPDATE order_details SET tracking_number = $1, shipped = $2 WHERE id = $3", [tracking_number, shipped, id]);
   },
 
-  create(id, content){
-    return db.query("INSERT into order_details (customer_id, content, shipped) VALUES ($1, $2, $3)", [id, content, false])
-  }
+  create(id, content) {
+    return db.query("INSERT into order_details (customer_id, content, shipped) VALUES ($1, $2, $3)", [id, content, false]);
+  },
 };
 
 module.exports = order;

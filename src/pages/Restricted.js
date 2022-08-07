@@ -1,4 +1,4 @@
-export default function Unauthorized() {
+export default function Restricted() {
   return (
     <div>
       <div className="container my-5">

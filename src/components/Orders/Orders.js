@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import Loading from "./Loading";
+import Loading from "../../pages/Loading";
 const dayjs = require("dayjs");
 
 export default function Orders() {
@@ -17,10 +17,7 @@ export default function Orders() {
 
   const calculateTotal = (arr) => {
     if (orders.length === 0) return 0;
-    return JSON.parse(arr).reduce(
-      (total, order) => total + order.quantity * order.item.price,
-      0
-    );
+    return JSON.parse(arr).reduce((total, order) => total + order.quantity * order.item.price, 0);
   };
 
   if (loading) return <Loading />;
@@ -46,10 +43,7 @@ export default function Orders() {
                 <td>RM {calculateTotal(order.content)}</td>
                 <td>
                   {order.tracking_number ? (
-                    <a
-                      style={{ color: "blue" }}
-                      href={`https://easyparcel.com/my/en/track/details/?courier=Poslaju&awb=${order.tracking_number}`}
-                    >
+                    <a style={{ color: "blue" }} href={`https://tracking.pos.com.my/tracking/${order.tracking_number}`}>
                       {order.tracking_number}
                     </a>
                   ) : (

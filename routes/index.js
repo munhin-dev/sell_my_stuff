@@ -1,4 +1,4 @@
-const { userValidationRules, addressValidationRules, validate } = require("../middleware/validator");
+const { validationRules, validate } = require("../middleware/validator");
 const express = require("express");
 const app = express.Router();
 const controller = require("../controller");
@@ -20,12 +20,12 @@ app.put("/api/products/update/:id", controller.product.updateProductById);
 app.get("/api/products/:id", controller.product.getOneByProductId);
 
 app.get("/api/address", controller.address.getUserAddress);
-app.post("/api/address", addressValidationRules(), validate, controller.address.createUserAddress);
-app.put("/api/address", addressValidationRules(), validate, controller.address.updateUserAddress);
+app.post("/api/address", validationRules("address"), validate, controller.address.createUserAddress);
+app.put("/api/address", validationRules("address"), validate, controller.address.updateUserAddress);
 
-app.post("/api/register", userValidationRules(), validate, controller.user.createUser);
 app.get("/api/users", controller.user.getCurrentUser);
-app.put("/api/users", controller.user.updateCurrentUser);
+app.post("/api/register", validationRules("register"), validate, controller.user.createUser);
+app.put("/api/users", validationRules("userInfo"), validate,controller.user.updateCurrentUser);
 
 app.get("/api/authenticate", controller.user.authenticate);
 app.post("/api/login", controller.user.login);

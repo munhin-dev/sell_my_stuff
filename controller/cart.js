@@ -14,9 +14,7 @@ const cart = {
     if (!req.session.userId) return;
     try {
       const cart = await models.cart.get(req.session.userId);
-      cart
-        ? await models.cart.update(req.session.userId, req.body.cart)
-        : await models.cart.create(req.session.userId, req.body.cart);
+      cart ? await models.cart.update(req.session.userId, req.body.cart) : await models.cart.create(req.session.userId, req.body.cart);
       res.status(200).json({ message: "Cart Created/Updated Successfully!" });
     } catch (error) {
       next(error);

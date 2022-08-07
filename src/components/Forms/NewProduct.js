@@ -1,9 +1,9 @@
 import axios from "axios";
 import { useState } from "react";
-import Select from "react-select";
 import { useNavigate } from "react-router-dom";
+import Select from "react-select";
 
-export default function ProductForm() {
+export default function NewProduct() {
   const [input, setInput] = useState();
   const navigate = useNavigate();
   const handleSubmit = (event) => {

@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
-import Unauthorized from "../components/Restricted";
+import Restricted from "../pages/Restricted";
 
 export default function PrivateRoute({ admin, children }) {
-  if (!admin) return <Unauthorized />;
+  if (!admin) return <Restricted />;
   return children ? children : <Outlet />;
 }

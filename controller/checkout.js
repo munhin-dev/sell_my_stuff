@@ -24,8 +24,7 @@ const checkout = {
         mode: "payment",
         line_items: req.body.items.map((item) => {
           const storeItem = products.get(item.id);
-          if (storeItem.quantity < item.quantity)
-            throw new Error("Insufficient Inventory");
+          if (storeItem.quantity < item.quantity) throw new Error("Insufficient Inventory");
           return {
             price_data: {
               currency: "myr",

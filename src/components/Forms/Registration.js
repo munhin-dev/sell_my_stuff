@@ -5,7 +5,7 @@ import ReactTooltip from "react-tooltip";
 import Swal from "sweetalert2";
 import Cookies from "js-cookie";
 
-export default function Signup({ onLogin }) {
+export default function Registration({ onLogin }) {
   const [input, setInput] = useState({});
   const [errors, setErrors] = useState([]);
   const navigate = useNavigate();
@@ -20,9 +20,9 @@ export default function Signup({ onLogin }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await axios.post("/register", { ...input });
+      await axios.post("/api/register", { ...input });
       const { username, password } = input;
-      await axios.post("/login", { username, password });
+      await axios.post("/api/login", { username, password });
       const { data } = await axios.get("/authenticate");
       const { isLoggedIn, isAdmin } = data;
       Cookies.set("login", isLoggedIn);
@@ -76,8 +76,7 @@ export default function Signup({ onLogin }) {
                   <i className="fa fa-exclamation-circle opacity-50" data-tip data-for="registerTip" aria-hidden="true"></i>
                   <ReactTooltip id="registerTip" place="top" effect="solid" type="dark" multiline={true}>
                     - Password must be at least 5 characters long <br />
-                    - Contain one uppercase letters <br />
-                    - Contain one special case letter
+                    - Contain one uppercase letters <br />- Contain one special case letter
                   </ReactTooltip>
                 </div>
               </div>

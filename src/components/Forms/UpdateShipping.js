@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function Shipping() {
+export default function EditShipping() {
   const [input, setInput] = useState({ shipped: true });
   const navigate = useNavigate();
   const { id } = useParams();

@@ -20,16 +20,11 @@ export default function Dashboard() {
   }, []);
 
   const calculateTotal = (arr) => {
-    return JSON.parse(arr).reduce(
-      (total, order) => total + order.quantity * order.item.price,
-      0
-    );
+    return JSON.parse(arr).reduce((total, order) => total + order.quantity * order.item.price, 0);
   };
 
   const calculateEarning = (arr) => {
-    return arr
-      .map(({ content }) => content)
-      .reduce((total, item) => total + calculateTotal(item), 0);
+    return arr.map(({ content }) => content).reduce((total, item) => total + calculateTotal(item), 0);
   };
 
   if (loading) return <Loading />;
@@ -65,9 +60,7 @@ export default function Dashboard() {
               return (
                 <tr key={order.id}>
                   <th scope="row">{order.id}</th>
-                  <td>
-                    {dayjs(order.created_at).format("YYYY-MM-DD hh:mm A")}
-                  </td>
+                  <td>{dayjs(order.created_at).format("YYYY-MM-DD hh:mm A")}</td>
                   <td>RM {calculateTotal(order.content)}</td>
                   <td>{order.username}</td>
                   <td>
@@ -97,17 +90,8 @@ export default function Dashboard() {
                       </button>
                     </p>
                     <div className="collapse" id={`address${order.id}`}>
-                      <div
-                        className="card card-body mt-2 p-4"
-                        style={{ position: "relative", left: "-30px" }}
-                      >
-                        {[
-                          order.address_line1,
-                          order.address_line2,
-                          order.city,
-                          order.postal_code,
-                          order.country,
-                        ].join(", ")}
+                      <div className="card card-body mt-2 p-4" style={{ position: "relative", left: "-30px" }}>
+                        {[order.address_line1, order.address_line2, order.city, order.postal_code, order.country].join(", ")}
                       </div>
                     </div>
                   </td>
@@ -118,10 +102,7 @@ export default function Dashboard() {
                   </td>
                   <td>
                     <Link to={`/admin/orders/update/${order.id}`}>
-                      <i
-                        className="fas fa-edit"
-                        style={{ cursor: "pointer" }}
-                      ></i>
+                      <i className="fas fa-edit" style={{ cursor: "pointer" }}></i>
                     </Link>
                   </td>
                 </tr>
@@ -150,21 +131,14 @@ export default function Dashboard() {
                 <tr key={product.id}>
                   <th scope="row">{product.id}</th>
                   <td className="col-2">
-                    <img
-                      style={{ width: "35%", objectFit: "scale-down" }}
-                      src={product.image}
-                      alt=""
-                    />
+                    <img style={{ width: "35%", objectFit: "scale-down" }} src={product.image} alt="" />
                   </td>
                   <td>{product.name}</td>
                   <td>RM {product.price}</td>
                   <td>{product.quantity}</td>
                   <td>
                     <Link to={`/admin/product/update/${product.id}`}>
-                      <i
-                        className="fas fa-edit"
-                        style={{ cursor: "pointer" }}
-                      ></i>
+                      <i className="fas fa-edit" style={{ cursor: "pointer" }}></i>
                     </Link>
                   </td>
                 </tr>
