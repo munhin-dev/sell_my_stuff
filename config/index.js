@@ -31,9 +31,13 @@ const sessionConfig = () => {
 
 const stripeKey = process.env.STRIPE_KEY;
 
+const domain = () => {
+  return process.env.NODE_ENV === "production" ? "https://sell-my-stuff-456852.surge.sh" : "http://localhost:3000";
+};
+
 const corsConfig = {
-  origin: process.env.NODE_ENV === "production" ? "https://sell-my-stuff-456852.surge.sh" : "http://localhost:3000",
+  origin: domain(),
   credentials: true,
 };
 
-module.exports = { sessionConfig, stripeKey, transporter, mailContent, corsConfig };
+module.exports = { sessionConfig, stripeKey, transporter, mailContent, corsConfig, domain };

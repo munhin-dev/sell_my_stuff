@@ -1,4 +1,4 @@
-const { stripeKey, transporter, mailContent } = require("../config");
+const { stripeKey, transporter, mailContent, domain } = require("../config");
 const stripe = require("stripe")(stripeKey);
 const models = require("../models");
 
@@ -34,8 +34,8 @@ const checkout = {
             quantity: item.quantity,
           };
         }),
-        success_url: "http://localhost:3000/success",
-        cancel_url: "http://localhost:3000/cart",
+        success_url: `${domain}/success`,
+        cancel_url: `${domain}/cart`,
       });
 
       res.status(200).json({ url });
