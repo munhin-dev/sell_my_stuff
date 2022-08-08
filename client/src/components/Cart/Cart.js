@@ -50,8 +50,13 @@ export default function Cart({ cart, onCartUpdate, user }) {
       });
   };
 
-  const calculateTotal = () => cart.reduce((total, { item, quantity }) => total + item.price * quantity, 0);
-  const index = (id) => cart.findIndex((product) => product.item.id === Number(id));
+  const calculateTotal = () =>
+    cart.reduce(
+      (total, { item, quantity }) => total + item.price * quantity,
+      0
+    );
+  const index = (id) =>
+    cart.findIndex((product) => product.item.id === Number(id));
 
   if (cart.length === 0) {
     return (
@@ -62,7 +67,9 @@ export default function Cart({ cart, onCartUpdate, user }) {
         <div className="container mb-5">
           <div className="card" style={{ width: "100%", height: "25vh" }}>
             <div className="card-body d-flex justify-content-center align-items-center">
-              <h4 className="card-title text-center">No items added to this bag </h4>
+              <h4 className="card-title text-center">
+                No items added to this bag{" "}
+              </h4>
             </div>
           </div>
         </div>
@@ -76,15 +83,18 @@ export default function Cart({ cart, onCartUpdate, user }) {
         <h2> Shopping Bag</h2>
       </div>
       <div className="container mb-4 ">
-        <div className="row justify-content-center">
-          <div className="col">
+        <div className="row flex-column flex-lg-row justify-content-center">
+          <div className="col-lg-7 col-xl-8">
             {cart.map(({ item }) => {
               const buyAmount = cart[index(item.id)].quantity;
               return (
-                <div className="card flex-row align-self-start p-4 my-2" key={item.id}>
+                <div
+                  className="card flex-column flex-md-row align-self-start p-4 my-2"
+                  key={item.id}
+                >
                   <img
                     src={item.image}
-                    className="card-image-top align-self-center"
+                    className="card-image-top align-self-center "
                     alt=""
                     style={{
                       width: "10rem",
@@ -95,21 +105,36 @@ export default function Cart({ cart, onCartUpdate, user }) {
                   <div className="card-body py-1">
                     <div className="d-flex justify-content-between">
                       <h5>{item.name}</h5>
-                      <h5>RM {item.price}</h5>
+                      <h5 className="text-end">RM {item.price}</h5>
                     </div>
                     <div className="d-flex justify-content-between my-2">
                       <h6 className="my-auto">Quantity:</h6>
                       <div className="d-flex align-items-center card-text">
-                        <button type="button" className="btn btn-primary btn-sm mr-1" onClick={() => handleMinus(item.id)} disabled={buyAmount === 1}>
+                        <button
+                          type="button"
+                          className="btn btn-primary btn-sm mr-1"
+                          onClick={() => handleMinus(item.id)}
+                          disabled={buyAmount === 1}
+                        >
                           -
                         </button>
                         <div className="card-text mx-3">{buyAmount}</div>
-                        <button type="button" className="btn btn-primary btn-sm ml-1" onClick={() => handlePlus(item.id)} disabled={buyAmount === item.quantity}>
+                        <button
+                          type="button"
+                          className="btn btn-primary btn-sm ml-1"
+                          onClick={() => handlePlus(item.id)}
+                          disabled={buyAmount === item.quantity}
+                        >
                           +
                         </button>
                       </div>
                     </div>
-                    <a href="/" className="my-3" style={{ float: " right" }} onClick={(event) => handleRemove(event, item.id)}>
+                    <a
+                      href="/"
+                      className="my-3"
+                      style={{ float: " right" }}
+                      onClick={(event) => handleRemove(event, item.id)}
+                    >
                       <i className="fa fa-trash"></i>
                     </a>
                   </div>
@@ -117,24 +142,35 @@ export default function Cart({ cart, onCartUpdate, user }) {
               );
             })}
           </div>
-          <div className="card align-self-start" style={{ width: "25rem" }}>
-            <div className="card-body my-4">
-              <h4 className="card-title my-4 ">Order Summary</h4>
-              <h5 className="card-subtitle my-4 ">
-                Subtotal: <span style={{ float: " right" }}>RM {calculateTotal()}</span>
-              </h5>
-              <h5 className="card-subtitle my-4 ">
-                Estimated Shipping: <span style={{ float: " right" }}>Free</span>
-              </h5>
-              <h6 className="card-text text-muted">Shipping only available via Poslaju</h6>
-              <h5 className="card-subtitle my-4">
-                Total: <span style={{ float: " right" }}>RM {calculateTotal()}</span>
-              </h5>
-              <Link to="/checkout">
-                <button type="button" className="btn btn-primary d-block mx-auto btn-lg" onClick={handleCheckout}>
-                  Checkout
-                </button>
-              </Link>
+          <div className="col">
+            <div className="card align-self-start py-4">
+              <div className="card-body">
+                <h4 className="card-title my-4 ">Order Summary</h4>
+                <h5 className="card-subtitle my-4 ">
+                  Subtotal:{" "}
+                  <span style={{ float: " right" }}>RM {calculateTotal()}</span>
+                </h5>
+                <h5 className="card-subtitle my-4 ">
+                  Estimated Shipping:{" "}
+                  <span style={{ float: " right" }}>Free</span>
+                </h5>
+                <h6 className="card-text text-muted">
+                  Shipping only available via Poslaju
+                </h6>
+                <h5 className="card-subtitle my-4">
+                  Total:{" "}
+                  <span style={{ float: " right" }}>RM {calculateTotal()}</span>
+                </h5>
+                <Link to="/checkout">
+                  <button
+                    type="button"
+                    className="btn btn-primary d-block mx-auto btn-lg"
+                    onClick={handleCheckout}
+                  >
+                    Checkout
+                  </button>
+                </Link>
+              </div>
             </div>
           </div>
         </div>

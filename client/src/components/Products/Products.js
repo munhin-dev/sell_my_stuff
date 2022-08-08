@@ -16,7 +16,7 @@ export default function Products({ products }) {
   return (
     <div className="container my-3">
       <div className="row">
-        <h2>{"All" || getCategory(pathname)?.name}</h2>
+        <h2>{getCategory(pathname)?.name || "All"}</h2>
       </div>
       <div className="row row-cols-auto justify-content-center justify-content-md-start">
         {products

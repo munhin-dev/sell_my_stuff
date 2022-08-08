@@ -33,7 +33,7 @@ export default function Product({ onCartUpdate, cart }) {
 
   return (
     <div className="container">
-      <div className="card flex-md-row my-5 p-5 w-75 mx-auto">
+      <div className="card flex-md-row my-5 p-5 mx-auto " style={{maxWidth: "1000px" }}>
         <img src={item.image} className="card-img-top" alt="" style={{ maxHeight: "25rem", width: "100%", objectFit: "scale-down" }} />
         <div className="card-body">
           <h5 className="card-title">{item.name}</h5>
@@ -49,7 +49,7 @@ export default function Product({ onCartUpdate, cart }) {
               +
             </button>
           </div>
-          <button className="btn btn-primary my-3" onClick={handleCart} disabled={checkDisable(id)}>
+          <button className="btn btn-primary  my-3" onClick={handleCart} disabled={checkDisable(id)}>
             Add To Bag
           </button>
         </div>

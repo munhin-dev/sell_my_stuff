@@ -23,7 +23,7 @@ export default function Orders() {
   if (loading) return <Loading />;
 
   return (
-    <div className="container my-5">
+    <div className="container table-responsive">
       <table className="table">
         <thead>
           <tr>
