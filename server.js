@@ -9,8 +9,9 @@ const port = process.env.PORT || 8080;
 
 app.use(express.json());
 app.use(session(sessionConfig()));
-app.use(express.static(path.join(__dirname, "client/build")));
+app.use(express.static(path.join(__dirname, "client/public")));
 app.use(router);
+app.get("*", (req, res) => res.sendFile(__dirname, "client", "public", "index.html"));
 app.use(errorHandler);
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
