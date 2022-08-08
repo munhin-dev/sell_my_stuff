@@ -2,20 +2,26 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Loading from "../../pages/Loading";
+import { Restricted } from "../../pages";
 
 export default function Order() {
   const { id } = useParams();
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios.get(`/api/order/${id}`).then(({ data }) => {
-      const content = JSON.parse(data.content);
-      setItems(content);
-      setLoading(false);
-    });
+    axios
+      .get(`/api/order/${id}`)
+      .then(({ data }) => {
+        const content = JSON.parse(data.content);
+        setItems(content);
+        setLoading(false);
+      })
+      .catch((err) => setError(err));
   }, [id]);
 
+  if (error) return <Restricted />;
   if (loading) return <Loading />;
 
   return (

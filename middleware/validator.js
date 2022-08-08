@@ -88,7 +88,7 @@ const validate = (req, res, next) => {
   if (result.isEmpty()) {
     return next();
   }
-  throw result.errors;
+  throw new Error("validation failed", { cause: result.errors });
 };
 
 module.exports = { validationRules, validate };

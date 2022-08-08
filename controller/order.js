@@ -4,6 +4,7 @@ const order = {
   async getOneByOrderId(req, res, next) {
     try {
       const response = await models.order.getOneById(req.params.id);
+      if (response.customer_id !== req.session.userId) throw new Error("unauthorized access");
       res.status(200).json(response);
     } catch (error) {
       next(error);
