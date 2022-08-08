@@ -14,8 +14,7 @@ export default function Order() {
     axios
       .get(`/api/order/${id}`)
       .then(({ data }) => {
-        const content = JSON.parse(data.content);
-        setItems(content);
+        setItems(JSON.parse(data.content));
         setLoading(false);
       })
       .catch((err) => setError(err));
