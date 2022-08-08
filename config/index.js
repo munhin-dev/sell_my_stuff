@@ -14,8 +14,11 @@ const mailContent = (order_number, name) => `\nConfirmation Number: ${order_numb
 const sessionConfig = {
   secret: "keyboardcat",
   resave: false,
-  saveUninitialized: true,
-  cookie: { secure: false },
+  saveUninitialized: false,
+  cookie: { 
+    secure: false, 
+    sameSite: "none" 
+  },
 };
 
 const stripeKey = "sk_test_51LNPqSEzYab6HLIKoQ36q0fKkNLrGQLoNkUOepySj0xIeEyuH2ELacSZ1e1IFvxhRXhnjuMPFcnowxWEuBzFcRcz00ln3zeJhj";
