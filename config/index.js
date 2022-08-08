@@ -24,7 +24,7 @@ const sessionConfig = () => {
 
 const domain = () =>
   process.env.NODE_ENV === "production"
-    ? "https://sell-my-stuff-456852.herokuapp.com/"
+    ? "https://sell-my-stuff-456852.herokuapp.com"
     : "http://localhost:3000";
 
 const stripeKey = process.env.STRIPE_KEY;
