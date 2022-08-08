@@ -34,8 +34,8 @@ const checkout = {
             quantity: item.quantity,
           };
         }),
-        success_url: `${domain}/success`,
-        cancel_url: `${domain}/cart`,
+        success_url: `${domain()}/success`,
+        cancel_url: `${domain()}/cart`,
       });
 
       res.status(200).json({ url });
