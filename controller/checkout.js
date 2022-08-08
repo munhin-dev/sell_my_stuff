@@ -61,7 +61,7 @@ const checkout = {
           subject: "Thank you! Your order is confirmed.",
           text: mailContent(order.id, user.first_name),
         });
-        res.status(200).json({ msg: "Payment processed successfully." });
+        res.status(200).json({ message: "Payment processed successfully." });
       } catch (error) {
         next(error);
       }

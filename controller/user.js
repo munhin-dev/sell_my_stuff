@@ -31,12 +31,12 @@ const user = {
   async login(req, res, next) {
     try {
       const { username, password } = req.body;
-      const users = await models.user.getByUsername(username);
-      if (!users) throw new Error("Invalid username or password");
-      const matched = await bcrypt.compare(password, users.password);
+      const user = await models.user.getByUsername(username);
+      if (!user) throw new Error("Invalid username or password");
+      const matched = await bcrypt.compare(password, user.password);
       if (!matched) throw new Error("Invalid username or password");
-      req.session.userId = users.id;
-      req.session.admin = users.is_admin;
+      req.session.userId = user.id;
+      req.session.admin = user.is_admin;
       res.status(200).json({ 
         message: "User authenticated!!", 
         isLoggedIn: Boolean(req.session.userId), 
