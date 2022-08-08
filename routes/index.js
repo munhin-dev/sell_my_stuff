@@ -31,6 +31,4 @@ app.get("/api/authenticate", controller.user.authenticate);
 app.post("/api/login", controller.user.login);
 app.delete("/api/logout", controller.user.logout);
 
-app.get("*", controller.renderIndexHtml);
-
 module.exports = app;

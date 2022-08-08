@@ -1,7 +1,16 @@
 const { body, validationResult } = require("express-validator");
 const models = require("../models");
 
-const addressRules = [body("address_line1").trim().notEmpty(), body("city").trim().notEmpty(), body("postal_code").trim().notEmpty().isPostalCode("MY").withMessage("Invalid postal code provided"), body("country").trim().notEmpty().equals("Malaysia")];
+const addressRules = [
+  body("address_line1").trim().notEmpty(),
+  body("city").trim().notEmpty(),
+  body("postal_code")
+    .trim()
+    .notEmpty()
+    .isPostalCode("MY")
+    .withMessage("Invalid postal code provided"),
+  body("country").trim().notEmpty().equals("Malaysia"),
+];
 
 const registrationRules = [
   body("first_name")
@@ -38,7 +47,10 @@ const registrationRules = [
       const oldUser = await models.user.getByUsername(value);
       if (oldUser) return Promise.reject("Username already in use");
     }),
-  body("password", "Password does not meet minimum requirements").isStrongPassword({
+  body(
+    "password",
+    "Password does not meet minimum requirements"
+  ).isStrongPassword({
     minLength: 5,
     minLowercase: 0,
     minUppercase: 1,
