@@ -25,10 +25,12 @@ app.put("/api/address", validationRules("address"), validate, controller.address
 
 app.get("/api/users", controller.user.getCurrentUser);
 app.post("/api/register", validationRules("register"), validate, controller.user.createUser);
-app.put("/api/users", validationRules("userInfo"), validate,controller.user.updateCurrentUser);
+app.put("/api/users", validationRules("userInfo"), validate, controller.user.updateCurrentUser);
 
 app.get("/api/authenticate", controller.user.authenticate);
 app.post("/api/login", controller.user.login);
 app.delete("/api/logout", controller.user.logout);
+
+app.get("*", controller.renderIndexHtml);
 
 module.exports = app;

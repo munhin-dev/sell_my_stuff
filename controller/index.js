@@ -4,5 +4,18 @@ const cart = require("./cart");
 const user = require("./user");
 const product = require("./product");
 const address = require("./address");
+const path = require("path");
 
-module.exports = { order, checkout, cart, product, user, address };
+const renderIndexHtml = (req, res) => {
+  res.sendFile(path.join(__dirname + "/client/build/index.html"));
+};
+
+module.exports = {
+  order,
+  checkout,
+  cart,
+  product,
+  user,
+  address,
+  renderIndexHtml,
+};
