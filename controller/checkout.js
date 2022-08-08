@@ -1,4 +1,4 @@
-const { stripeKey, transporter } = require("../config");
+const { stripeKey, transporter, mailContent } = require("../config");
 const stripe = require("stripe")(stripeKey);
 const models = require("../models");
 
@@ -51,16 +51,17 @@ const checkout = {
       try {
         const cart = await models.cart.get(id);
         const updateInventory = JSON.parse(cart.content).map(({ item, quantity }) => models.product.updateInventory(quantity, item.id));
+        const getUser = models.user.getById(id);
         const createOrder = models.order.create(id, cart.content);
         const deleteCart = models.cart.delete(id);
-        await Promise.all([...updateInventory, createOrder, deleteCart]);
+        const [user, order] = await Promise.all([getUser, createOrder, ...updateInventory, createOrder, deleteCart]);
         await transporter.sendMail({
-          from: "test-123-123-123@outlook.com",
-          to: "obh555@gmail.com",
-          subject: "Sending email with node.js",
-          text: "Thank you for purchasing with SellMyStuff. Your payment has been successfully processed, please allow 2-3 days for item to be shipped.",
+          from: "sellmystuff456852@zohomail.com",
+          to: user.email,
+          subject: "Thank you! Your order is confirmed.",
+          text: mailContent(order.id, user.first_name),
         });
-        res.status(200).end();
+        res.status(200).json({ msg: "Payment processed successfully." });
       } catch (error) {
         next(error);
       }

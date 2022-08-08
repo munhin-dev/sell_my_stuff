@@ -27,6 +27,7 @@
     "start": "^5.1.0",
     "stripe": "^9.14.0",
     "sweetalert2": "^11.4.24",
+    "use-local-storage": "^2.3.6",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

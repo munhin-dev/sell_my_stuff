@@ -12,7 +12,7 @@ const user = {
   },
   async getCurrentUser(req, res, next) {
     try {
-      const user = await models.user.getByUserId(req.session.userId);
+      const user = await models.user.getById(req.session.userId);
       res.status(200).json(user);
     } catch (error) {
       next(error);

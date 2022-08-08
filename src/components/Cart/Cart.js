@@ -3,22 +3,22 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
-export default function Cart({ cart, onCart, user }) {
+export default function Cart({ cart, onCartUpdate, user }) {
   const navigate = useNavigate();
   const handleRemove = (event, id) => {
     event.preventDefault();
     const newCart = cart.filter(({ item }) => item.id !== id);
-    onCart(newCart);
+    onCartUpdate(newCart);
   };
 
   const handleMinus = (id) => {
     cart[index(id)].quantity -= 1;
-    onCart([...cart]);
+    onCartUpdate([...cart]);
   };
 
   const handlePlus = (id) => {
     cart[index(id)].quantity += 1;
-    onCart([...cart]);
+    onCartUpdate([...cart]);
   };
 
   const handleCheckout = () => {

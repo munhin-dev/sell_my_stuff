@@ -3,36 +3,35 @@ import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ProtectedRoute, PrivateRoute } from "../routes";
 import { Dashboard, Loading, Success } from "../pages";
+import useLocalStorage from "use-local-storage";
+import * as Form from "../components/Forms";
+import { Product, Products } from "../components/Products";
+import { Order, Orders } from "../components/Orders";
 import Layout from "../layout";
 import Account from "../components/Account";
 import Cart from "../components/Cart";
-import { Order, Orders } from "../components/Orders";
-import { Product, Products } from "../components/Products";
-import * as Form from "../components/Forms";
-import Cookies from "js-cookie";
 
 function App() {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
-  const [user, setUser] = useState(JSON.parse(Cookies.get("login") || null));
-  const [admin, setAdmin] = useState(JSON.parse(Cookies.get("admin") | null));
+  const [user, setUser] = useLocalStorage("login", "");
+  const [admin, setAdmin] = useLocalStorage("admin", "");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get("/api/products").then(({ data }) => {
-      setProducts(data);
-      setLoading(false);
-    });
-    axios.get("/api/cart").then(({ data }) => setCart(JSON.parse(data.content)));
-    axios.get("/api/authenticate").then(({ data: { isLoggedIn, isAdmin } }) => {
+    const getLoginStatus = axios.get("/api/authenticate");
+    const getProducts = axios.get("/api/products");
+    const getCart = axios.get("/api/cart");
+    Promise.all([getLoginStatus, getProducts, getCart]).then(([status, products, cart]) => {
+      const { isLoggedIn, isAdmin } = status.data;
+      const cartContent = cart.data.content;
+      if (cartContent) setCart(JSON.parse(cartContent));
       setUser(isLoggedIn);
       setAdmin(isAdmin);
-      if (!isLoggedIn) {
-        Cookies.remove("login");
-        Cookies.remove("admin");
-      }
+      setProducts(products.data);
+      setLoading(false);
     });
-  }, []);
+  }, [setAdmin, setUser]);
 
   useEffect(() => {
     axios.post("/api/cart", { cart: JSON.stringify(cart) });
@@ -40,7 +39,7 @@ function App() {
 
   const handleUser = (status) => setUser(status);
   const handleAdmin = (status) => setAdmin(status);
-  const handleCart = (cart) => setCart(cart);
+  const handleCartUpdate = (cart) => setCart(cart);
 
   if (loading) return <Loading />;
 
@@ -52,17 +51,17 @@ function App() {
             {["/", "/games", "/appliances", "/dvd", "/instruments", "/books"].map((path, index) => (
               <Route key={index} path={path} element={<Products products={products} />} />
             ))}
-            <Route path="/product/:id" element={<Product onCart={handleCart} cart={cart} />} />
-            <Route path="/cart" element={<Cart cart={cart} user={user} onCart={handleCart} />} />
-            <Route path="/signin" element={<Form.Login onLogin={handleUser} onAdmin={handleAdmin} />} />
+            <Route path="/product/:id" element={<Product onCartUpdate={handleCartUpdate} cart={cart} />} />
+            <Route path="/cart" element={<Cart cart={cart} user={user} onCartUpdate={handleCartUpdate} />} />
+            <Route path="/signin" element={<Form.Login onLogin={handleUser} onAdmin={handleAdmin} onCartUpdate={handleCartUpdate} cart={cart} />} />
             <Route path="/signup" element={<Form.Registration onLogin={handleUser} />} />
             <Route path="/success" element={<Success />} />
 
             <Route element={<ProtectedRoute user={user} />}>
-              <Route path="/account" element={<Account onLogout={handleUser} />} />
+              <Route path="/account" element={<Account onLogout={handleUser} onCartUpdate={handleCartUpdate} />} />
               <Route path="/account/address/edit" element={<Form.EditAddress />} />
               <Route path="/account/user/edit" element={<Form.EditUser />} />
-              <Route path="/checkout" element={<Cart cart={cart} user={user} onCart={handleCart} />} />
+              <Route path="/checkout" element={<Cart cart={cart} user={user} onCartUpdate={handleCartUpdate} />} />
               <Route path="/orders" element={<Orders />} />
               <Route path="/orders/:id" element={<Order />} />
             </Route>

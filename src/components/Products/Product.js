@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Loading from "../../pages/Loading";
 
-export default function Product({ onCart, cart }) {
+export default function Product({ onCartUpdate, cart }) {
   const { id } = useParams();
   const [item, setItem] = useState({});
   const [quantity, setQuantity] = useState(1);
@@ -21,9 +21,9 @@ export default function Product({ onCart, cart }) {
   const handleCart = () => {
     if (cart.map(({ item }) => item.id).includes(Number(id)) && cart.length !== 0) {
       cart[index(id)].quantity += quantity;
-      onCart([...cart]);
+      onCartUpdate([...cart]);
     } else {
-      onCart([...cart, { item, quantity }]);
+      onCartUpdate([...cart, { item, quantity }]);
     }
   };
   const index = (id) => cart.findIndex(({ item }) => item.id === Number(id));

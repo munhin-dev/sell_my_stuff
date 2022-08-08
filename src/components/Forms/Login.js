@@ -1,9 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import Cookies from "js-cookie";
 
-export default function LoginForm({ onLogin, onAdmin }) {
+export default function LoginForm({ onLogin, onAdmin, onCartUpdate, cart }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -13,12 +12,17 @@ export default function LoginForm({ onLogin, onAdmin }) {
     try {
       event.preventDefault();
       await axios.post("/api/login", { username, password });
-      const { data } = await axios.get("/api/authenticate");
-      const { isLoggedIn, isAdmin } = data;
-      Cookies.set("login", isLoggedIn);
-      Cookies.set("admin", isAdmin);
+      const {
+        data: { isLoggedIn, isAdmin },
+      } = await axios.get("/api/authenticate");
       onLogin(isLoggedIn);
       onAdmin(isAdmin);
+      if (cart.length) {
+        await axios.post("/api/cart", { cart: JSON.stringify(cart) });
+      } else {
+        const { data: cart } = await axios.get("/api/cart");
+        onCartUpdate(JSON.parse(cart.content));
+      }
       navigate(-1);
     } catch (err) {
       setError(err.response.data.error);

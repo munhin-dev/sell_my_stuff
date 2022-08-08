@@ -8,7 +8,7 @@ const user = {
     const hash = await bcrypt.hash(password, salt);
     return db.query("INSERT INTO customer (username, password, email, first_name, last_name, mobile) VALUES ($1, $2, $3, $4, $5, $6)", [username, hash, email, first_name, last_name, mobile]);
   },
-  async getByUserId(id) {
+  async getById(id) {
     const res = await db.query("SELECT username, email, first_name, last_name, mobile FROM customer WHERE id = $1", [id]);
     return res.rows[0];
   },

@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Loading } from "../../pages";
 
-export default function Account({ onLogout }) {
+export default function Account({ onLogout, onCartUpdate }) {
   const [userInfo, setUserInfo] = useState({});
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -22,6 +22,7 @@ export default function Account({ onLogout }) {
   const handleLogout = () =>
     axios.delete("api/logout").then(() => {
       onLogout(false);
+      onCartUpdate([]);
       navigate("/");
     });
 
