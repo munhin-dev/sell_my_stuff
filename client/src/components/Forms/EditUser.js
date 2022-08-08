@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Loading from "../../pages/Loading";
 import axios from "axios";
-import domain from "../../utils";
 
 export default function EditUser() {
   const [input, setInput] = useState({});
@@ -11,7 +10,7 @@ export default function EditUser() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`${domain}/api/users`).then(({ data }) => {
+    axios.get("/api/users").then(({ data }) => {
       setInput({
         first_name: data.first_name,
         last_name: data.last_name,
@@ -33,7 +32,7 @@ export default function EditUser() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     axios
-      .put(`${domain}/api/users`, { ...input })
+      .put("/api/users", { ...input })
       .then(() => navigate("/account"))
       .catch((err) => setErrors(err.response.data.error));
   };

@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Loading from "../../pages/Loading";
-import domain from "../../utils";
 const dayjs = require("dayjs");
 
 export default function Orders() {
@@ -10,7 +9,7 @@ export default function Orders() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get(`${domain}/api/order`).then(({ data }) => {
+    axios.get("/api/order").then(({ data }) => {
       setOrders(data);
       setLoading(false);
     });

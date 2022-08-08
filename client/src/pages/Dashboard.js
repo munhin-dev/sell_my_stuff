@@ -2,7 +2,6 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Loading from "./Loading";
-import domain from "../utils";
 const dayjs = require("dayjs");
 
 export default function Dashboard() {
@@ -11,8 +10,8 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const orders = axios.get(`${domain}/api/dashboard/orders`);
-    const products = axios.get(`${domain}/api/products`);
+    const orders = axios.get(`/api/dashboard/orders`);
+    const products = axios.get(`/api/products`);
     Promise.all([orders, products]).then(([orders, products]) => {
       setOrders(orders.data);
       setProducts(products.data);

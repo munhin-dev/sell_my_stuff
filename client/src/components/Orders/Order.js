@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Loading from "../../pages/Loading";
 import { Restricted } from "../../pages";
-import domain from "../../utils";
 
 export default function Order() {
   const { id } = useParams();
@@ -13,7 +12,7 @@ export default function Order() {
 
   useEffect(() => {
     axios
-      .get(`${domain}/api/order/${id}`)
+      .get(`/api/order/${id}`)
       .then(({ data }) => {
         setItems(JSON.parse(data.content));
         setLoading(false);

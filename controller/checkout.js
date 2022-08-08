@@ -1,6 +1,7 @@
-const { stripeKey, transporter, mailContent, domain } = require("../config");
+const { stripeKey, transporter, mailContent } = require("../config");
 const stripe = require("stripe")(stripeKey);
 const models = require("../models");
+require("dotenv").config();
 
 const checkout = {
   async handleCheckout(req, res, next) {
@@ -34,8 +35,8 @@ const checkout = {
             quantity: item.quantity,
           };
         }),
-        success_url: `${domain()}/success`,
-        cancel_url: `${domain()}/cart`,
+        success_url: "/success",
+        cancel_url: "/cart",
       });
 
       res.status(200).json({ url });
@@ -56,7 +57,7 @@ const checkout = {
         const deleteCart = models.cart.delete(id);
         const [user, order] = await Promise.all([getUser, createOrder, ...updateInventory, createOrder, deleteCart]);
         await transporter.sendMail({
-          from: "sellmystuff456852@zohomail.com",
+          from: process.env.EMAIL_ADDRESS,
           to: user.email,
           subject: "Thank you! Your order is confirmed.",
           text: mailContent(order.id, user.first_name),

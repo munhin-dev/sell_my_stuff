@@ -2,7 +2,6 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import domain from "../../utils";
 
 export default function EditShipping() {
   const [input, setInput] = useState({ shipped: true });
@@ -11,7 +10,7 @@ export default function EditShipping() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios.put(`${domain}/api/order/update/${id}`, { tracking_number: input.tracking_number, shipped: JSON.parse(input.shipped) }).then(() => navigate("/admin"));
+    axios.put(`/api/order/update/${id}`, { tracking_number: input.tracking_number, shipped: JSON.parse(input.shipped) }).then(() => navigate("/admin"));
   };
 
   const handleChange = (event) => {

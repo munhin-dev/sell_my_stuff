@@ -2,14 +2,13 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
-import domain from "../../utils";
 
 export default function NewProduct() {
   const [input, setInput] = useState();
   const navigate = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios.post(`${domain}/products/new`, { input }).then(() => navigate("/admin"));
+    axios.post("/products/new", { input }).then(() => navigate("/admin"));
   };
 
   const handleChange = (event) => {

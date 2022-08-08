@@ -2,7 +2,6 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Loading from "../../pages/Loading";
-import domain from "../../utils";
 
 export default function EditAddress() {
   const [address, setAddress] = useState(null);
@@ -12,7 +11,7 @@ export default function EditAddress() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`${domain}/api/address`).then(({ data }) => {
+    axios.get("/api/address").then(({ data }) => {
       setAddress(data);
       setInput({
         address_line1: data.address_line1,
@@ -30,7 +29,7 @@ export default function EditAddress() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const updateAddress = address ? axios.put(`${domain}/api/address`, { ...input }) : axios.post(`${domain}/api/address`, { ...input });
+    const updateAddress = address ? axios.put("/api/address", { ...input }) : axios.post("/api/address", { ...input });
     updateAddress.then(() => navigate("/account")).catch((err) => setErrors(err.response.data.error));
   };
 

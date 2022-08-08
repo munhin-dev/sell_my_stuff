@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import Select from "react-select";
 import Loading from "../../pages/Loading";
 import { useNavigate } from "react-router-dom";
-import domain from "../../utils";
 
 export default function EditProduct() {
   const [product, setProduct] = useState();
@@ -14,7 +13,7 @@ export default function EditProduct() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`${domain}/api/products/${id}`).then(({ data }) => {
+    axios.get(`/api/products/${id}`).then(({ data }) => {
       setProduct(data);
       setInput({
         name: data.name,
@@ -30,7 +29,7 @@ export default function EditProduct() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios.put(`${domain}/api/products/update/${id}`, { input }).then(() => navigate("/admin"));
+    axios.put(`/api/products/update/${id}`, { input }).then(() => navigate("/admin"));
   };
 
   const handleChange = (event) => {

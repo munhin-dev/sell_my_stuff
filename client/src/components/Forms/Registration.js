@@ -3,8 +3,6 @@ import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import ReactTooltip from "react-tooltip";
 import Swal from "sweetalert2";
-import domain from "../../utils";
-
 export default function Registration({ onLogin }) {
   const [input, setInput] = useState({});
   const [errors, setErrors] = useState([]);
@@ -17,9 +15,9 @@ export default function Registration({ onLogin }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await axios.post(`${domain}/api/register`, { ...input });
+      await axios.post("/api/register", { ...input });
       const { username, password } = input;
-      const { data: user } = await axios.post(`${domain}/api/login`, { username, password });
+      const { data: user } = await axios.post("/api/login", { username, password });
       onLogin.handleUser(user.isLoggedIn);
       onLogin.handleAdmin(user.isAdmin);
       await Swal.fire({
