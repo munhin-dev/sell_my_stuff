@@ -37,7 +37,10 @@ const user = {
       if (!matched) throw new Error("Invalid username or password");
       req.session.userId = users.id;
       req.session.admin = users.is_admin;
-      res.status(200).json({ message: "User authenticated!!" });
+      res.status(200).json({ 
+        message: "User authenticated!!", 
+        isLoggedIn: Boolean(req.session.userId), 
+        isAdmin: Boolean(req.session.admin) });
     } catch (error) {
       next(error);
     }

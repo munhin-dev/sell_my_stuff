@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
-export default function LoginForm({ onLogin, onAdmin, onCartUpdate, cart }) {
+export default function LoginForm({ onLogin, onCartUpdate, cart }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -11,12 +11,9 @@ export default function LoginForm({ onLogin, onAdmin, onCartUpdate, cart }) {
   const handleSubmit = async (event) => {
     try {
       event.preventDefault();
-      await axios.post("/api/login", { username, password });
-      const {
-        data: { isLoggedIn, isAdmin },
-      } = await axios.get("/api/authenticate");
-      onLogin(isLoggedIn);
-      onAdmin(isAdmin);
+      const { data: user } = await axios.post("/api/login", { username, password });
+      onLogin.handleUser(user.isLoggedIn);
+      onLogin.handleAdmin(user.isAdmin);
       if (cart.length) {
         await axios.post("/api/cart", { cart: JSON.stringify(cart) });
       } else {

@@ -19,15 +19,13 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const getLoginStatus = axios.get("/api/authenticate");
     const getProducts = axios.get("/api/products");
+    const getAuth = axios.get("/api/authenticate");
     const getCart = axios.get("/api/cart");
-    Promise.all([getLoginStatus, getProducts, getCart]).then(([status, products, cart]) => {
-      const { isLoggedIn, isAdmin } = status.data;
-      const cartContent = cart.data.content;
-      if (cartContent) setCart(JSON.parse(cartContent));
-      setUser(isLoggedIn);
-      setAdmin(isAdmin);
+    Promise.all([getAuth, getProducts, getCart]).then(([auth, products, cart]) => {
+      if (cart.data.content) setCart(JSON.parse(cart.data.content));
+      setUser(auth.data.isLoggedIn);
+      setAdmin(auth.data.isAdmin);
       setProducts(products.data);
       setLoading(false);
     });
@@ -53,8 +51,8 @@ function App() {
             ))}
             <Route path="/product/:id" element={<Product onCartUpdate={handleCartUpdate} cart={cart} />} />
             <Route path="/cart" element={<Cart cart={cart} user={user} onCartUpdate={handleCartUpdate} />} />
-            <Route path="/signin" element={<Form.Login onLogin={handleUser} onAdmin={handleAdmin} onCartUpdate={handleCartUpdate} cart={cart} />} />
-            <Route path="/signup" element={<Form.Registration onLogin={handleUser} />} />
+            <Route path="/signin" element={<Form.Login onLogin={{ handleUser, handleAdmin }} onCartUpdate={handleCartUpdate} cart={cart} />} />
+            <Route path="/signup" element={<Form.Registration onLogin={{ handleUser, handleAdmin }} />} />
             <Route path="/success" element={<Success />} />
 
             <Route element={<ProtectedRoute user={user} />}>

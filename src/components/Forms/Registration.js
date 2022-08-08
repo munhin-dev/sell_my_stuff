@@ -3,7 +3,6 @@ import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import ReactTooltip from "react-tooltip";
 import Swal from "sweetalert2";
-import Cookies from "js-cookie";
 
 export default function Registration({ onLogin }) {
   const [input, setInput] = useState({});
@@ -22,12 +21,9 @@ export default function Registration({ onLogin }) {
     try {
       await axios.post("/api/register", { ...input });
       const { username, password } = input;
-      await axios.post("/api/login", { username, password });
-      const { data } = await axios.get("/authenticate");
-      const { isLoggedIn, isAdmin } = data;
-      Cookies.set("login", isLoggedIn);
-      Cookies.set("admin", isAdmin);
-      onLogin(isLoggedIn);
+      const { data: user } = await axios.post("/api/login", { username, password });
+      onLogin.handleUser(user.isLoggedIn);
+      onLogin.handleAdmin(user.isAdmin);
       await Swal.fire({
         icon: "success",
         title: "Account successfully created",
