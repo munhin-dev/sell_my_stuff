@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import domain from "../../utils";
 
 export default function Cart({ cart, onCartUpdate, user }) {
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ export default function Cart({ cart, onCartUpdate, user }) {
     if (!user) return;
     let items = cart.map(({ item, quantity }) => ({ id: item.id, quantity }));
     axios
-      .post("/api/checkout", { items })
+      .post(`${domain}/api/checkout`, { items })
       .then(({ data }) => (window.location = data.url))
       .catch((err) => {
         if (err.response.data.error === "Insufficient Inventory") {

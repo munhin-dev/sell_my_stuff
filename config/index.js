@@ -20,4 +20,9 @@ const sessionConfig = {
 
 const stripeKey = "sk_test_51LNPqSEzYab6HLIKoQ36q0fKkNLrGQLoNkUOepySj0xIeEyuH2ELacSZ1e1IFvxhRXhnjuMPFcnowxWEuBzFcRcz00ln3zeJhj";
 
-module.exports = { sessionConfig, stripeKey, transporter, mailContent};
+const corsConfig = {
+  origin: process.env.NODE_ENV === "production" ? "https://sell-my-stuff-456852.surge.sh" : "http://localhost:3000",
+  credentials: true,
+};
+
+module.exports = { sessionConfig, stripeKey, transporter, mailContent, corsConfig };

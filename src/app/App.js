@@ -10,6 +10,7 @@ import { Order, Orders } from "../components/Orders";
 import Layout from "../layout";
 import Account from "../components/Account";
 import Cart from "../components/Cart";
+import domain from "../utils";
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -19,9 +20,9 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const getProducts = axios.get("/api/products");
-    const getAuth = axios.get("/api/authenticate");
-    const getCart = axios.get("/api/cart");
+    const getAuth = axios.get(`${domain}/api/authenticate`);
+    const getProducts = axios.get(`${domain}/api/products`);
+    const getCart = axios.get(`${domain}/api/cart`);
     Promise.all([getAuth, getProducts, getCart]).then(([auth, products, cart]) => {
       if (cart.data.content) setCart(JSON.parse(cart.data.content));
       setUser(auth.data.isLoggedIn);
@@ -32,7 +33,7 @@ function App() {
   }, [setAdmin, setUser]);
 
   useEffect(() => {
-    axios.post("/api/cart", { cart: JSON.stringify(cart) });
+    axios.post(`${domain}/api/cart`, { cart: JSON.stringify(cart) });
   }, [cart]);
 
   const handleUser = (status) => setUser(status);

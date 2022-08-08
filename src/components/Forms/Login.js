@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import domain from "../../utils";
 
 export default function LoginForm({ onLogin, onCartUpdate, cart }) {
   const [username, setUsername] = useState("");
@@ -11,13 +12,13 @@ export default function LoginForm({ onLogin, onCartUpdate, cart }) {
   const handleSubmit = async (event) => {
     try {
       event.preventDefault();
-      const { data: user } = await axios.post("/api/login", { username, password });
+      const { data: user } = await axios.post(`${domain}/api/login`, { username, password });
       onLogin.handleUser(user.isLoggedIn);
       onLogin.handleAdmin(user.isAdmin);
       if (cart.length) {
-        await axios.post("/api/cart", { cart: JSON.stringify(cart) });
+        await axios.post(`${domain}/api/cart`, { cart: JSON.stringify(cart) });
       } else {
-        const { data: cart } = await axios.get("/api/cart");
+        const { data: cart } = await axios.get(`${domain}/api/cart`);
         onCartUpdate(JSON.parse(cart.content));
       }
       navigate(-1);

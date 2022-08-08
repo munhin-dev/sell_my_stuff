@@ -91,7 +91,7 @@ export default function Footer() {
               </p>
               <p>
                 <i className="fas fa-envelope me-3"></i>
-                info@sellmystuff.com
+                sellmystuff456852@zohomail.com
               </p>
               <p>
                 <i className="fas fa-phone me-3"></i> + 6016-8115967
@@ -100,7 +100,7 @@ export default function Footer() {
           </div>
         </div>
       </section>
-      
+
       <div className="text-center p-4">© 2022 Copyright: Sell My Stuff.com</div>
     </footer>
   );

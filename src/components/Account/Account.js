@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Loading } from "../../pages";
+import domain from "../../utils";
 
 export default function Account({ onLogout, onCartUpdate }) {
   const [userInfo, setUserInfo] = useState({});
@@ -9,8 +10,8 @@ export default function Account({ onLogout, onCartUpdate }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const getUser = axios.get("/api/users");
-    const getAddress = axios.get("api/address");
+    const getUser = axios.get(`${domain}/api/users`);
+    const getAddress = axios.get(`${domain}/api/address`);
     Promise.all([getUser, getAddress]).then(([userData, addressData]) => {
       const { data: user } = userData;
       const { data: address } = addressData;
@@ -20,7 +21,7 @@ export default function Account({ onLogout, onCartUpdate }) {
   }, []);
 
   const handleLogout = () =>
-    axios.delete("api/logout").then(() => {
+    axios.delete(`${domain}/api/logout`).then(() => {
       onLogout(false);
       onCartUpdate([]);
       navigate("/");

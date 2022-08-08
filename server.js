@@ -1,14 +1,17 @@
 const express = require("express");
 const errorHandler = require("./middleware/error_handler");
 const session = require("express-session");
-const { sessionConfig } = require("./config");
+const { sessionConfig, corsConfig } = require("./config");
 const router = require("./routes");
 const app = express();
+const cors = require("cors");
+const port = process.env.PORT || 8080;
 
+app.use(cors(corsConfig));
 app.use(express.json());
 app.use(session(sessionConfig));
 app.use(router);
 app.use(errorHandler);
-app.listen(8080, () => {
-  console.log("Listening on port 8080");
+app.listen(port, () => {
+  console.log(`Listening on port ${port}`);
 });
