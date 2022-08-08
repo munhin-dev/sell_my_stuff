@@ -1,3 +1,4 @@
+require("dotenv").config();
 const { Pool } = require("pg");
 let db;
 if (process.env.NODE_ENV === "production") {
@@ -9,9 +10,9 @@ if (process.env.NODE_ENV === "production") {
   });
 } else {
   db = new Pool({
-    user: "postgres",
-    password: "password",
-    database: "sell_my_stuff",
+    user: process.env.DATABASE_USER,
+    password: process.env.DATABASE_PASSWORD,
+    database: process.env.DATABASE_NAME,
   });
 }
 

@@ -1,11 +1,12 @@
+require("dotenv").config();
 const nodemailer = require("nodemailer");
 const transporter = nodemailer.createTransport({
   host: "smtp.zoho.com",
   secure: true,
   port: 465,
   auth: {
-    user: "sellmystuff456852@zohomail.com",
-    pass: "NeSh31212@",
+    user: process.env.EMAIL_ADDRESS,
+    pass: process.env.EMAIL_PASSWORD,
   },
 });
 
@@ -14,7 +15,7 @@ const mailContent = (order_number, name) => `\nConfirmation Number: ${order_numb
 const sessionConfig = () => {
   if (process.env.NODE_ENV === "production") {
     return {
-      secret: "keyboardcat",
+      secret: process.env.SESSION_SECRET,
       resave: false,
       saveUninitialized: false,
       cookie: {
@@ -24,11 +25,11 @@ const sessionConfig = () => {
       },
     };
   } else {
-    return { secret: "keyboardcat", resave: false, saveUninitialized: true, cookie: { secure: false } };
+    return { secret: process.env.SESSION_SECRET, resave: false, saveUninitialized: true, cookie: { secure: false } };
   }
 };
 
-const stripeKey = "sk_test_51LNPqSEzYab6HLIKoQ36q0fKkNLrGQLoNkUOepySj0xIeEyuH2ELacSZ1e1IFvxhRXhnjuMPFcnowxWEuBzFcRcz00ln3zeJhj";
+const stripeKey = process.env.STRIPE_KEY;
 
 const corsConfig = {
   origin: process.env.NODE_ENV === "production" ? "https://sell-my-stuff-456852.surge.sh" : "http://localhost:3000",

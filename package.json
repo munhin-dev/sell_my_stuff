@@ -20,9 +20,10 @@
   },
   "homepage": "https://github.com/obh555/sell_my_stuff#readme",
   "dependencies": {
-    "express": "^4.18.1",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
     "express-session": "^1.17.3",
     "express-validator": "^6.14.2",
     "nodemailer": "^6.7.7",
