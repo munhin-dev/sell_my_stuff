@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ProtectedRoute, PrivateRoute } from "../routes";
-import { Dashboard, Loading, Success } from "../pages";
+import { Dashboard, Loading, Success, NotFound } from "../pages";
 import useLocalStorage from "use-local-storage";
 import * as Form from "../components/Forms";
 import { Product, Products } from "../components/Products";
@@ -71,6 +71,7 @@ function App() {
               <Route path="/admin/product/update/:id" element={<Form.UpdateProduct />} />
               <Route path="/admin/product/new" element={<Form.NewProduct />} />
             </Route>
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </Layout>
       </Router>
