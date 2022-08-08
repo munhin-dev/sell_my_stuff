@@ -1,11 +1,11 @@
 const express = require("express");
 const errorHandler = require("./middleware/error_handler");
 const session = require("express-session");
-const path = require("path");
 const { sessionConfig } = require("./config");
 const router = require("./routes");
 const app = express();
 const port = process.env.PORT || 8080;
+const path = require("path");
 
 app.use(express.json());
 app.use(session(sessionConfig()));
