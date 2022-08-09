@@ -4,15 +4,15 @@ An e-commerce website developed with PERN stack. User can register account and f
 
 See live project [here](https://sell-my-stuff-456852.herokuapp.com/)
 
-username: chapeng (admin)
-password: A9d8d2618@
+username: chapeng (admin)  
+password: A9d8d2618@  
 
-username: cheeong
-password: A70cd59ae@
+username: cheeong  
+password: A70cd59ae@  
 
-credit card number: 4242 4242 4242 4242
-cvc: 424 
-expiry: 04/24
+credit card number: 4242 4242 4242 4242  
+cvc: 424   
+expiry: 04/24  
 
 admin path: https://sell-my-stuff-456852.herokuapp.com/admin
 
