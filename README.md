@@ -1,4 +1,4 @@
-# Musify
+# Sell My Stuff
 
 An e-commerce website developed with PERN stack. User can register account and fill up address detail and start browsing the catalogue to shop. Payment will be handle via Stripe API. The website owner has admin privileges and able to navigate to admin dashboard to see total sales as well as update the inventory, product and tracking number. Confirmation e-mail will be sent out upon successful payment. Both frontend and backend are hosted on herokuapp.com
 
