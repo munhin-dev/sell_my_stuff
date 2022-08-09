@@ -1,13 +1,8 @@
 import React from "react";
 import homeButton from "../assets/home_button.png";
 import { Link } from "react-router-dom";
-import { useState } from "react";
 
-export default function Navbar({ signin, cart }) {
-  const [collapsed, setCollapsed] = useState(true);
-
-  const handleCollapsed = () => setCollapsed(!collapsed);
-
+export default function Navbar({ user, cart }) {
   const totalItems = () =>
     cart.reduce((total, { quantity }) => total + quantity, 0);
   return (
@@ -24,8 +19,8 @@ export default function Navbar({ signin, cart }) {
                   <span
                     className="position-absolute translate-middle badge rounded-pill text-bg-secondary"
                     style={{
-                      left: "15px",
-                      top: "8px",
+                      left: "2px",
+                      top: "10px",
                       fontSize: "0.5rem",
                     }}
                   >
@@ -45,66 +40,77 @@ export default function Navbar({ signin, cart }) {
           aria-controls="navbarNav"
           aria-expanded="true"
           aria-label="Toggle navigation"
-          onClick={handleCollapsed}
         >
           <i className="fas fa-bars"></i>
         </button>
-        <div
-          className={`collapse navbar-collapse ${!collapsed && "show"}`}
-          id="navbarNav"
-        >
+        <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
-            <li className="nav-item">
-              <Link to="games" className="nav-link" onClick={handleCollapsed}>
+            <Link to="games" className="nav-link">
+              <li
+                className="nav-item"
+                data-bs-toggle="collapse"
+                data-bs-target=".navbar-collapse.show"
+              >
                 Video Games
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link
-                to="appliances"
-                className="nav-link"
-                onClick={handleCollapsed}
+              </li>
+            </Link>
+            <Link to="appliances" className="nav-link">
+              <li
+                className="nav-item"
+                data-bs-toggle="collapse"
+                data-bs-target=".navbar-collapse.show"
               >
                 Home Appliances
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to="dvd" className="nav-link" onClick={handleCollapsed}>
+              </li>
+            </Link>
+            <Link to="dvd" className="nav-link">
+              <li
+                className="nav-item"
+                data-bs-toggle="collapse"
+                data-bs-target=".navbar-collapse.show"
+              >
                 Music and DVD
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link
-                to="instruments"
-                className="nav-link"
-                onClick={handleCollapsed}
+              </li>
+            </Link>
+            <Link to="instruments" className="nav-link">
+              <li
+                className="nav-item"
+                data-bs-toggle="collapse"
+                data-bs-target=".navbar-collapse.show"
               >
                 Musical Instruments
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to="books" className="nav-link" onClick={handleCollapsed}>
+              </li>
+            </Link>
+            <Link to="books" className="nav-link">
+              <li
+                className="nav-item"
+                data-bs-toggle="collapse"
+                data-bs-target=".navbar-collapse.show"
+              >
                 Books
-              </Link>
-            </li>
+              </li>
+            </Link>
           </ul>
 
           <ul className="navbar-nav  ms-auto">
-            <li className="nav-item">
-              <Link to="orders" className="nav-link" onClick={handleCollapsed}>
+            <Link to="orders" className="nav-link">
+              <li
+                className="nav-item"
+                data-bs-toggle="collapse"
+                data-bs-target=".navbar-collapse.show"
+              >
                 <i
                   className="d-none d-xl-inline fa fa-history mx-1"
                   aria-hidden="true"
                 ></i>
                 Order History
-              </Link>
-            </li>
-            <li className="nav-item d-none d-xl-inline">
-              <Link
-                to="cart"
-                className="nav-link position-relative"
-                onClick={handleCollapsed}
-              >
+              </li>
+            </Link>
+            <Link
+              to="cart"
+              className=" d-none d-xl-inline nav-link position-relative"
+            >
+              <li className="nav-item">
                 <i className="fa fa-shopping-bag mx-1" aria-hidden="true">
                   {cart.length > 0 && (
                     <span
@@ -120,35 +126,38 @@ export default function Navbar({ signin, cart }) {
                   )}
                 </i>
                 Bag
-              </Link>
-            </li>
-            <li className="nav-item">
-              {signin ? (
-                <Link
-                  to="account"
-                  className="nav-link"
-                  onClick={handleCollapsed}
+              </li>
+            </Link>
+
+            {user ? (
+              <Link to="account" className="nav-link">
+                <li
+                  className="nav-item"
+                  data-bs-toggle="collapse"
+                  data-bs-target=".navbar-collapse.show"
                 >
                   <i
                     className="d-none d-xl-inline fa fa-user mx-1"
                     aria-hidden="true"
                   ></i>
                   Account
-                </Link>
-              ) : (
-                <Link
-                  to="signin"
-                  className="nav-link"
-                  onClick={handleCollapsed}
+                </li>
+              </Link>
+            ) : (
+              <Link to="signin" className="nav-link">
+                <li
+                  className="nav-item"
+                  data-bs-toggle="collapse"
+                  data-bs-target=".navbar-collapse.show"
                 >
                   <i
-                    className="d-none d-xl-inline fa fa-sign-in mx-1"
+                    className="d-none d-xl-inline fa fa-sign-in  mx-1"
                     aria-hidden="true"
                   ></i>
                   Sign In
-                </Link>
-              )}
-            </li>
+                </li>
+              </Link>
+            )}
           </ul>
         </div>
       </div>

@@ -62,7 +62,7 @@ export default function Cart({ cart, onCartUpdate, user }) {
     return (
       <>
         <div className="container my-4">
-          <h2> Shopping Bag</h2>
+          <h2>Shopping Bag</h2>
         </div>
         <div className="container mb-5">
           <div className="card" style={{ width: "100%", height: "25vh" }}>

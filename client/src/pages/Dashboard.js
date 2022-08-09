@@ -20,11 +20,16 @@ export default function Dashboard() {
   }, []);
 
   const calculateTotal = (arr) => {
-    return JSON.parse(arr).reduce((total, order) => total + order.quantity * order.item.price, 0);
+    return JSON.parse(arr).reduce(
+      (total, order) => total + order.quantity * order.item.price,
+      0
+    );
   };
 
   const calculateEarning = (arr) => {
-    return arr.map(({ content }) => content).reduce((total, item) => total + calculateTotal(item), 0);
+    return arr
+      .map(({ content }) => content)
+      .reduce((total, item) => total + calculateTotal(item), 0);
   };
 
   if (loading) return <Loading />;
@@ -35,13 +40,16 @@ export default function Dashboard() {
         <h2>Dashboard</h2>
         <h3 className="my-3">Total Sales: RM {calculateEarning(orders)}</h3>
       </div>
-      <div className="row justify-content-end">
+      <div className="row justify-content-end me-2">
         <a href="/admin/product/new" className="col-auto btn btn-primary">
           Add Product
         </a>
       </div>
-      <div className="my-5" style={{ height: "300px", overflowY: "scroll" }}>
-        <table className="table caption-top">
+      <div
+        className="my-5 order-list"
+        style={{ height: "300px", overflowY: "scroll" }}
+      >
+        <table className="table caption-top table-striped">
           <caption>List of orders</caption>
           <thead>
             <tr>
@@ -50,7 +58,7 @@ export default function Dashboard() {
               <th scope="col">Total Paid</th>
               <th scope="col">Order By</th>
               <th scope="col">Shipped</th>
-              <th scope="col"></th>
+              <th scope="col">Address</th>
               <th scope="col"></th>
               <th scope="col"></th>
             </tr>
@@ -60,12 +68,18 @@ export default function Dashboard() {
               return (
                 <tr key={order.id}>
                   <th scope="row">{order.id}</th>
-                  <td>{dayjs(order.created_at).format("YYYY-MM-DD hh:mm A")}</td>
-                  <td>RM {calculateTotal(order.content)}</td>
-                  <td>{order.username}</td>
-                  <td>
+                  <td label="Order Date">
+                    {dayjs(order.created_at).format("YYYY-MM-DD hh:mm A")}
+                  </td>
+                  <td label="Total Paid">RM {calculateTotal(order.content)}</td>
+                  <td label="Order By">{order.username}</td>
+                  <td label="Shipped">
                     {order.shipped ? (
-                      <button type="button" className="btn btn-success" disabled>
+                      <button
+                        type="button"
+                        className="btn btn-success"
+                        disabled
+                      >
                         YES
                       </button>
                     ) : (
@@ -74,26 +88,14 @@ export default function Dashboard() {
                       </button>
                     )}
                   </td>
-                  <td className="col-2">
-                    <p>
-                      <button
-                        className="btn btn-primary"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target={`#address${order.id}`}
-                        style={{
-                          position: "relative",
-                          top: "8px",
-                        }}
-                      >
-                        Address
-                      </button>
-                    </p>
-                    <div className="collapse" id={`address${order.id}`}>
-                      <div className="card card-body mt-2 p-4" style={{ position: "relative", left: "-30px" }}>
-                        {[order.address_line1, order.address_line2, order.city, order.postal_code, order.country].join(", ")}
-                      </div>
-                    </div>
+                  <td className="col col-xl-5" label="Address">
+                    {[
+                      order.address_line1,
+                      order.address_line2,
+                      order.city,
+                      order.postal_code,
+                      order.country,
+                    ].join(", ")}
                   </td>
                   <td>
                     <Link to={`/orders/${order.id}`} className="text-muted">
@@ -102,7 +104,10 @@ export default function Dashboard() {
                   </td>
                   <td>
                     <Link to={`/admin/orders/update/${order.id}`}>
-                      <i className="fas fa-edit" style={{ cursor: "pointer" }}></i>
+                      <i
+                        className="fas fa-edit"
+                        style={{ cursor: "pointer" }}
+                      ></i>
                     </Link>
                   </td>
                 </tr>
@@ -112,8 +117,11 @@ export default function Dashboard() {
         </table>
       </div>
 
-      <div className="my-5" style={{ height: "300px", overflowY: "scroll" }}>
-        <table className="table caption-top">
+      <div
+        className="my-5 product-list"
+        style={{ height: "300px", overflowY: "scroll" }}
+      >
+        <table className="table table-striped caption-top">
           <caption>List of products</caption>
           <thead>
             <tr>
@@ -130,15 +138,18 @@ export default function Dashboard() {
               return (
                 <tr key={product.id}>
                   <th scope="row">{product.id}</th>
-                  <td className="col-2">
-                    <img style={{ width: "35%", objectFit: "scale-down" }} src={product.image} alt="" />
-                  </td>
-                  <td>{product.name}</td>
-                  <td>RM {product.price}</td>
-                  <td>{product.quantity}</td>
+                  <th className="d-none d-lg-table-cell col-1">
+                    <img className="img-fluid" src={product.image} alt="" />
+                  </th>
+                  <td label="Name">{product.name}</td>
+                  <td label="Selling Price">RM {product.price}</td>
+                  <td label="Inventory">{product.quantity}</td>
                   <td>
                     <Link to={`/admin/product/update/${product.id}`}>
-                      <i className="fas fa-edit" style={{ cursor: "pointer" }}></i>
+                      <i
+                        className="fas fa-edit"
+                        style={{ cursor: "pointer" }}
+                      ></i>
                     </Link>
                   </td>
                 </tr>

@@ -6,7 +6,7 @@ export default function Layout({ user, cart, children }) {
   const admin = !!window.location.href.match("admin");
   return (
     <Fragment>
-      {!admin ? <Navbar signin={user} cart={cart} /> : null}
+      {!admin ? <Navbar user={user} cart={cart} /> : null}
       {children}
       {!admin ? <Footer /> : null}
     </Fragment>

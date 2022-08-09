@@ -31,7 +31,7 @@ export default function Account({ onLogout, onCartUpdate }) {
   return (
     <div className="container">
       <div className="d-flex flex-column flex-md-row justify-content-center mt-3">
-        <div className="card m-4" style={{ width: "25rem" }}>
+        <div className="card col col-md-5 m-4" style={{ maxWidth: "25rem" }}>
           <div className="card-body">
             <h5 className="card-title">Account Information</h5>
             <p className="card-text">Username: {userInfo.user?.username}</p>
@@ -46,7 +46,7 @@ export default function Account({ onLogout, onCartUpdate }) {
             </Link>
           </div>
         </div>
-        <div className="card m-4" style={{ width: "25rem" }}>
+        <div className="card col col-md-5 m-4" style={{ maxWidth: "25rem" }}>
           <div className="card-body">
             <h5 className="card-title">Address Information</h5>
             <p className="card-text">Address Line 1: {userInfo.address?.address_line1}</p>
