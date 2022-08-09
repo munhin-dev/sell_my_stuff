@@ -47,7 +47,7 @@ export default function Orders() {
       <div className="container my-4">
         <h2>Past Orders</h2>
       </div>
-      <table className="table container">
+      <table className="table container table-striped">
         <thead>
           <tr>
             <th scope="col">Order ID#</th>
