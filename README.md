@@ -17,7 +17,6 @@ expiry: 04/24
 admin path: https://sell-my-stuff-456852.herokuapp.com/admin
 
 ![Alt text](./client/public/screenshot/Screenshot%202022-08-09%20090848.png "Optional title")
-![Alt text](./client/public/screenshot/Screenshot%202022-08-09%20090958.png "Optional title")
 ![Alt text](./client/public/screenshot/Screenshot%202022-08-09%20091018.png "Optional title")
 
 ## Technologies
