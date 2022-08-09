@@ -31,7 +31,7 @@ const user = {
   async login(req, res, next) {
     try {
       const { username, password } = req.body;
-      const user = await models.user.getByUsername(username);
+      const user = await models.user.getByUsername(username.trim());
       if (!user) throw new Error("Invalid username or password");
       const matched = await bcrypt.compare(password, user.password);
       if (!matched) throw new Error("Invalid username or password");
