@@ -47,7 +47,10 @@ const registrationRules = [
       const oldUser = await models.user.getByUsername(value);
       if (oldUser) return Promise.reject("Username already in use");
     }),
-  body("password", "Invalid value provided")
+  body("password")
+    .trim()
+    .notEmpty()
+    .withMessage("Invalid value provided")
     .isStrongPassword({
       minLength: 5,
       minLowercase: 0,
