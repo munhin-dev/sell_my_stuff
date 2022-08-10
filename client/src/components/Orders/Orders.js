@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Loading from "../../pages/Loading";
-const dayjs = require("dayjs");
+import dayjs from "dayjs";
 
 export default function Orders() {
   const [orders, setOrders] = useState([]);
