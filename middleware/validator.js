@@ -17,29 +17,23 @@ const registrationRules = [
     .trim()
     .notEmpty()
     .withMessage("Invalid value provided")
-    .isAlpha(undefined, {
-      ignore: " ",
-    })
+    .isAlpha(undefined, { ignore: " " })
     .withMessage("No special characters allowed")
     .isLength({ max: 64 })
-    .withMessage("Username is too long"),
+    .withMessage("First name is too long"),
   body("last_name")
     .trim()
     .notEmpty()
     .withMessage("Invalid value provided")
-    .isAlpha(undefined, {
-      ignore: " ",
-    })
+    .isAlpha(undefined, { ignore: " " })
     .withMessage("No special characters allowed")
-    .isLength({ max: 64 }),
-
+    .isLength({ max: 64 })
+    .withMessage("First name is too long"),
   body("username")
     .trim()
     .notEmpty()
-    .withMessage("Invalid username provided")
-    .isAlphanumeric(undefined, {
-      ignore: "_-",
-    })
+    .withMessage("Invalid value provided")
+    .isAlphanumeric(undefined, { ignore: "_-" })
     .withMessage("Only alphanumeric characters allowed")
     .isLength({ max: 32 })
     .withMessage("Username is too long")
@@ -59,20 +53,28 @@ const registrationRules = [
       minSymbols: 1,
     })
     .withMessage("Password is too weak"),
-  body("email", "Invalid email address provided")
+  body("email")
+    .trim()
+    .notEmpty()
+    .withMessage("Invalid value provided")
     .isEmail()
+    .withMessage("Email address is invalid")
     .custom(async (value) => {
       const oldUser = await models.user.getByEmail(value);
       if (oldUser) return Promise.reject("E-mail already in use");
     }),
-  body("mobile", "Mobile number is invalid").isMobilePhone(),
+  body("mobile", "Mobile number is invalid")
+    .trim()
+    .notEmpty()
+    .withMessage("Invalid value provided")
+    .isMobilePhone(),
 ];
 
 const userInfoRules = [
   body("first_name")
     .trim()
     .notEmpty()
-    .withMessage("Invalid first name provided")
+    .withMessage("Invalid value provided")
     .isAlpha(undefined, {
       ignore: " ",
     })
@@ -82,7 +84,7 @@ const userInfoRules = [
   body("last_name")
     .trim()
     .notEmpty()
-    .withMessage("Invalid first last name provided")
+    .withMessage("Invalid value provided")
     .isAlpha(undefined, {
       ignore: " ",
     })
