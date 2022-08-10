@@ -9,7 +9,10 @@ export default function Registration({ onLogin }) {
   const navigate = useNavigate();
 
   const handleChange = (event) => {
-    setInput((values) => ({ ...values, [event.target.name]: event.target.value }));
+    setInput((values) => ({
+      ...values,
+      [event.target.name]: event.target.value,
+    }));
   };
 
   const handleSubmit = async (event) => {
@@ -17,7 +20,10 @@ export default function Registration({ onLogin }) {
     try {
       await axios.post("/api/register", { ...input });
       const { username, password } = input;
-      const { data: user } = await axios.post("/api/login", { username, password });
+      const { data: user } = await axios.post("/api/login", {
+        username,
+        password,
+      });
       onLogin.handleUser(user.isLoggedIn);
       onLogin.handleAdmin(user.isAdmin);
       await Swal.fire({
@@ -32,32 +38,56 @@ export default function Registration({ onLogin }) {
     }
   };
 
-  const invalid = (value) => errors.some((err) => err.param === value) && "is-invalid";
+  const invalid = (value) =>
+    errors.some((err) => err.param === value) && "is-invalid";
   const message = (value) => errors.find((err) => err.param === value)?.msg;
 
   return (
-    <div className="container col-10 my-5" style={{ maxWidth: "350px" }}>
-      <div className="row flex-column mt-5">
-        <form onSubmit={handleSubmit}>
+    <div className="container">
+      <div className="row my-5">
+        <form
+          onSubmit={handleSubmit}
+          className="col mx-auto"
+          style={{ maxWidth: "350px" }}
+        >
           <div className="text-end">
             <Link to="/">
-              <button type="button" className="btn-close" aria-label="Close"></button>
+              <button
+                type="button"
+                className="btn-close"
+                aria-label="Close"
+              ></button>
             </Link>
           </div>
           <h5>Kindly fill up below:</h5>
           <div className="form-group mt-4">
             <label>First Name</label>
-            <input type="text" className={`form-control ${invalid("first_name")}`} name="first_name" onChange={handleChange} />
+            <input
+              type="text"
+              className={`form-control ${invalid("first_name")}`}
+              name="first_name"
+              onChange={handleChange}
+            />
             <div className="invalid-feedback">{message("first_name")}</div>
           </div>
           <div className="form-group mt-4">
             <label>Last Name:</label>
-            <input type="text" className={`form-control ${invalid("last_name")}`} name="last_name" onChange={handleChange} />
+            <input
+              type="text"
+              className={`form-control ${invalid("last_name")}`}
+              name="last_name"
+              onChange={handleChange}
+            />
             <div className="invalid-feedback">{message("last_name")}</div>
           </div>
           <div className="form-group my-4">
             <label>Username:</label>
-            <input type="text" className={`form-control ${invalid("username")}`} name="username" onChange={handleChange} />
+            <input
+              type="text"
+              className={`form-control ${invalid("username")}`}
+              name="username"
+              onChange={handleChange}
+            />
             <div className="invalid-feedback">{message("username")}</div>
           </div>
           <div className="form-group mt-4">
@@ -65,27 +95,60 @@ export default function Registration({ onLogin }) {
               <div className="d-flex align-items-end justify-content-between">
                 <div>Password:</div>
                 <div className="App">
-                  <i className="fa fa-exclamation-circle opacity-50" data-tip data-for="registerTip" aria-hidden="true"></i>
-                  <ReactTooltip id="registerTip" place="top" effect="solid" type="dark" multiline={true}>
+                  <i
+                    className="fa fa-exclamation-circle opacity-50"
+                    data-tip
+                    data-for="registerTip"
+                    aria-hidden="true"
+                  ></i>
+                  <ReactTooltip
+                    id="registerTip"
+                    place="top"
+                    effect="solid"
+                    type="dark"
+                    multiline={true}
+                  >
                     - Password must be at least 5 characters long <br />
-                    - Contain one uppercase letters <br />- Contain one special case letter
+                    - Contain one uppercase letters <br />- Contain one special
+                    case letter
                   </ReactTooltip>
                 </div>
               </div>
             </label>
-            <input type="password" className={`form-control ${invalid("password")}`} name="password" autoComplete="off" onChange={handleChange} />
-            <div className="invalid-feedback" data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip on top">
+            <input
+              type="password"
+              className={`form-control ${invalid("password")}`}
+              name="password"
+              autoComplete="off"
+              onChange={handleChange}
+            />
+            <div
+              className="invalid-feedback"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              title="Tooltip on top"
+            >
               {message("password")}
             </div>
           </div>
           <div className="form-group mt-4">
             <label>Email Address:</label>
-            <input type="email" className={`form-control ${invalid("email")}`} name="email" onChange={handleChange} />
+            <input
+              type="email"
+              className={`form-control ${invalid("email")}`}
+              name="email"
+              onChange={handleChange}
+            />
             <div className="invalid-feedback">{message("email")}</div>
           </div>
           <div className="form-group mt-4">
             <label>Mobile Number:</label>
-            <input type="text" className={`form-control ${invalid("mobile")}`} name="mobile" onChange={handleChange} />
+            <input
+              type="text"
+              className={`form-control ${invalid("mobile")}`}
+              name="mobile"
+              onChange={handleChange}
+            />
             <div className="invalid-feedback">{message("mobile")}</div>
           </div>
           <div className="form-group mt-4">

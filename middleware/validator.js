@@ -16,7 +16,6 @@ const registrationRules = [
   body("first_name")
     .trim()
     .notEmpty()
-    .withMessage("Invalid value provided")
     .isAlpha(undefined, { ignore: " " })
     .withMessage("No special characters allowed")
     .isLength({ max: 64 })
@@ -24,7 +23,6 @@ const registrationRules = [
   body("last_name")
     .trim()
     .notEmpty()
-    .withMessage("Invalid value provided")
     .isAlpha(undefined, { ignore: " " })
     .withMessage("No special characters allowed")
     .isLength({ max: 64 })
@@ -32,7 +30,6 @@ const registrationRules = [
   body("username")
     .trim()
     .notEmpty()
-    .withMessage("Invalid value provided")
     .isAlphanumeric(undefined, { ignore: "_-" })
     .withMessage("Only alphanumeric characters allowed")
     .isLength({ max: 32 })
@@ -56,25 +53,23 @@ const registrationRules = [
   body("email")
     .trim()
     .notEmpty()
-    .withMessage("Invalid value provided")
     .isEmail()
     .withMessage("Email address is invalid")
     .custom(async (value) => {
       const oldUser = await models.user.getByEmail(value);
       if (oldUser) return Promise.reject("E-mail already in use");
     }),
-  body("mobile", "Mobile number is invalid")
+  body("mobile")
     .trim()
     .notEmpty()
-    .withMessage("Invalid value provided")
-    .isMobilePhone(),
+    .isMobilePhone()
+    .withMessage("Mobile number is invalid"),
 ];
 
 const userInfoRules = [
   body("first_name")
     .trim()
     .notEmpty()
-    .withMessage("Invalid value provided")
     .isAlpha(undefined, {
       ignore: " ",
     })
@@ -84,7 +79,6 @@ const userInfoRules = [
   body("last_name")
     .trim()
     .notEmpty()
-    .withMessage("Invalid value provided")
     .isAlpha(undefined, {
       ignore: " ",
     })
