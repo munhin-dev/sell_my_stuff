@@ -38,7 +38,7 @@ export default function Product({ onCartUpdate, cart }) {
 
   return (
     <div
-      className="card flex-md-row my-5 p-5 mx-auto container"
+      className="card col-11 flex-md-row my-5 p-5 mx-auto container"
       style={{ maxWidth: "1000px" }}
     >
       <img
