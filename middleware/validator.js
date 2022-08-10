@@ -16,21 +16,21 @@ const registrationRules = [
   body("first_name")
     .trim()
     .notEmpty()
-    .withMessage("Invalid first name provided")
+    .withMessage("Invalid value provided")
     .isAlpha(undefined, {
       ignore: " ",
     })
-    .withMessage("No special characters allowed for first name")
+    .withMessage("No special characters allowed")
     .isLength({ max: 64 })
-    .withMessage("Username cannot be longer than 64 characters"),
+    .withMessage("Username is too long"),
   body("last_name")
     .trim()
     .notEmpty()
-    .withMessage("Invalid first last name provided")
+    .withMessage("Invalid value provided")
     .isAlpha(undefined, {
       ignore: " ",
     })
-    .withMessage("No special characters allowed for last name")
+    .withMessage("No special characters allowed")
     .isLength({ max: 64 }),
 
   body("username")
@@ -40,16 +40,16 @@ const registrationRules = [
     .isAlphanumeric(undefined, {
       ignore: "_-",
     })
-    .withMessage("Only alphanumeric characters allowed for username")
+    .withMessage("Only alphanumeric characters allowed")
     .isLength({ max: 32 })
-    .withMessage("Username cannot be longer than 32 characters")
+    .withMessage("Username is too long")
     .custom(async (value) => {
       const oldUser = await models.user.getByUsername(value);
       if (oldUser) return Promise.reject("Username already in use");
     }),
   body(
     "password",
-    "Password does not meet minimum requirements"
+    "Password is too weak"
   ).isStrongPassword({
     minLength: 5,
     minLowercase: 0,
@@ -74,9 +74,9 @@ const userInfoRules = [
     .isAlpha(undefined, {
       ignore: " ",
     })
-    .withMessage("No special characters allowed for first name")
+    .withMessage("No special characters allowed")
     .isLength({ max: 64 })
-    .withMessage("Username cannot be longer than 64 characters"),
+    .withMessage("Username is too long"),
   body("last_name")
     .trim()
     .notEmpty()
@@ -84,7 +84,7 @@ const userInfoRules = [
     .isAlpha(undefined, {
       ignore: " ",
     })
-    .withMessage("No special characters allowed for last name")
+    .withMessage("No special characters allowed")
     .isLength({ max: 64 }),
   body("mobile", "Mobile number is invalid").isMobilePhone(),
 ];
