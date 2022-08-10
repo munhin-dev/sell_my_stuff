@@ -47,16 +47,15 @@ const registrationRules = [
       const oldUser = await models.user.getByUsername(value);
       if (oldUser) return Promise.reject("Username already in use");
     }),
-  body(
-    "password",
-    "Password is too weak"
-  ).isStrongPassword({
-    minLength: 5,
-    minLowercase: 0,
-    minUppercase: 1,
-    minNumbers: 0,
-    minSymbols: 1,
-  }),
+  body("password", "Invalid value provided")
+    .isStrongPassword({
+      minLength: 5,
+      minLowercase: 0,
+      minUppercase: 1,
+      minNumbers: 0,
+      minSymbols: 1,
+    })
+    .withMessage("Password is too weak"),
   body("email", "Invalid email address provided")
     .isEmail()
     .custom(async (value) => {
