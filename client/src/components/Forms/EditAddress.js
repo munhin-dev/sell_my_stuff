@@ -48,80 +48,73 @@ export default function EditAddress() {
   if (loading) return <Loading />;
 
   return (
-    <div className="container">
-      <div className="row my-5">
-        <form
-          className="col mx-auto"
-          onSubmit={handleSubmit}
-          style={{ maxWidth: "350px" }}
-        >
-          <div className="form-group mt-4">
-            <label htmlFor="address_line1">Address Line 1</label>
-            <input
-              type="text"
-              className={`form-control ${invalid("address_line1")}`}
-              name="address_line1"
-              id="address_line1"
-              onChange={handleChange}
-              value={input.address_line1}
-            />
-            <div className="invalid-feedback">{message("address_line1")}</div>
-          </div>
-          <div className="form-group mt-4">
-            <label htmlFor="address_line2">Address Line 2</label>
-            <input
-              type="text"
-              className={"form-control"}
-              name="address_line2"
-              id="address_line2 "
-              onChange={handleChange}
-              value={input.address_line2}
-            />
-          </div>
-          <div className="form-group mt-4">
-            <label htmlFor="city">City</label>
-            <input
-              type="text"
-              className={`form-control ${invalid("city")}`}
-              name="city"
-              id="city"
-              onChange={handleChange}
-              value={input.city}
-            />
-            <div className="invalid-feedback">{message("city")}</div>
-          </div>
-          <div className="form-group mt-4">
-            <label htmlFor="postal_code">Postal Code</label>
-            <input
-              type="text"
-              className={`form-control ${invalid("postal_code")}`}
-              name="postal_code"
-              id="postal_code"
-              onChange={handleChange}
-              value={input.postal_code}
-            />
-            <div className="invalid-feedback">{message("postal_code")}</div>
-          </div>
-          <div className="form-group mt-4">
-            <label htmlFor="country">Country</label>
-            <input
-              type="text"
-              className={`form-control ${invalid("country")}`}
-              name="country"
-              id="country"
-              value={input.country}
-              disabled
-            />
-            <div className="invalid-feedback">{message("country")}</div>
-          </div>
-          <button
-            type="submit"
-            className="btn btn-primary mt-4 d-block mx-auto"
-          >
-            Submit
-          </button>
-        </form>
+    <form
+      className="mx-auto my-5 container"
+      onSubmit={handleSubmit}
+      style={{ maxWidth: "350px" }}
+    >
+      <div className="form-group mt-4">
+        <label htmlFor="address_line1">Address Line 1</label>
+        <input
+          type="text"
+          className={`form-control ${invalid("address_line1")}`}
+          name="address_line1"
+          id="address_line1"
+          onChange={handleChange}
+          value={input.address_line1}
+        />
+        <div className="invalid-feedback">{message("address_line1")}</div>
       </div>
-    </div>
+      <div className="form-group mt-4">
+        <label htmlFor="address_line2">Address Line 2</label>
+        <input
+          type="text"
+          className={"form-control"}
+          name="address_line2"
+          id="address_line2 "
+          onChange={handleChange}
+          value={input.address_line2}
+        />
+      </div>
+      <div className="form-group mt-4">
+        <label htmlFor="city">City</label>
+        <input
+          type="text"
+          className={`form-control ${invalid("city")}`}
+          name="city"
+          id="city"
+          onChange={handleChange}
+          value={input.city}
+        />
+        <div className="invalid-feedback">{message("city")}</div>
+      </div>
+      <div className="form-group mt-4">
+        <label htmlFor="postal_code">Postal Code</label>
+        <input
+          type="text"
+          className={`form-control ${invalid("postal_code")}`}
+          name="postal_code"
+          id="postal_code"
+          onChange={handleChange}
+          value={input.postal_code}
+        />
+        <div className="invalid-feedback">{message("postal_code")}</div>
+      </div>
+      <div className="form-group mt-4">
+        <label htmlFor="country">Country</label>
+        <input
+          type="text"
+          className={`form-control ${invalid("country")}`}
+          name="country"
+          id="country"
+          value={input.country}
+          disabled
+        />
+        <div className="invalid-feedback">{message("country")}</div>
+      </div>
+      <button type="submit" className="btn btn-primary mt-4 d-block mx-auto">
+        Submit
+      </button>
+    </form>
   );
 }

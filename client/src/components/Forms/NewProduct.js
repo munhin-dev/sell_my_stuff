@@ -26,75 +26,68 @@ export default function NewProduct() {
   ];
 
   return (
-    <div className="container">
-      <div className="row my-5">
-        <form
-          className="col mx-auto"
-          onSubmit={handleSubmit}
-          style={{ maxWidth: "350px" }}
-        >
-          <div className="form-group my-2">
-            <label htmlFor="name">Name</label>
-            <input
-              type="text"
-              className="form-control"
-              name="name"
-              id="name"
-              onChange={handleChange}
-            />
-          </div>
-          <div className="form-group my-2">
-            <label htmlFor="description">Description</label>
-            <input
-              type="text"
-              className="form-control"
-              name="description"
-              id="description"
-              onChange={handleChange}
-            />
-          </div>
-          <div className="form-group my-2">
-            <label htmlFor="category">Category</label>
-            <Select options={options} onChange={handleChange} />
-          </div>
-          <div className="form-group my-2">
-            <label htmlFor="quantity">Quantity</label>
-            <input
-              type="text"
-              className="form-control"
-              name="quantity"
-              id="quantity"
-              onChange={handleChange}
-            />
-          </div>
-          <div className="form-group my-2">
-            <label htmlFor="price">Price</label>
-            <input
-              type="text"
-              className="form-control"
-              name="price"
-              id="price"
-              onChange={handleChange}
-            />
-          </div>
-          <div className="form-group my-2">
-            <label htmlFor="image">Image</label>
-            <input
-              type="text"
-              className="form-control"
-              name="image"
-              id="image"
-              onChange={handleChange}
-            />
-          </div>
-          <button
-            type="submit"
-            className="btn btn-primary my-2 d-block mx-auto"
-          >
-            Submit
-          </button>
-        </form>
+    <form
+      className="mx-auto my-5 container"
+      onSubmit={handleSubmit}
+      style={{ maxWidth: "350px" }}
+    >
+      <div className="form-group my-2">
+        <label htmlFor="name">Name</label>
+        <input
+          type="text"
+          className="form-control"
+          name="name"
+          id="name"
+          onChange={handleChange}
+        />
       </div>
-    </div>
+      <div className="form-group my-2">
+        <label htmlFor="description">Description</label>
+        <input
+          type="text"
+          className="form-control"
+          name="description"
+          id="description"
+          onChange={handleChange}
+        />
+      </div>
+      <div className="form-group my-2">
+        <label htmlFor="category">Category</label>
+        <Select options={options} onChange={handleChange} />
+      </div>
+      <div className="form-group my-2">
+        <label htmlFor="quantity">Quantity</label>
+        <input
+          type="text"
+          className="form-control"
+          name="quantity"
+          id="quantity"
+          onChange={handleChange}
+        />
+      </div>
+      <div className="form-group my-2">
+        <label htmlFor="price">Price</label>
+        <input
+          type="text"
+          className="form-control"
+          name="price"
+          id="price"
+          onChange={handleChange}
+        />
+      </div>
+      <div className="form-group my-2">
+        <label htmlFor="image">Image</label>
+        <input
+          type="text"
+          className="form-control"
+          name="image"
+          id="image"
+          onChange={handleChange}
+        />
+      </div>
+      <button type="submit" className="btn btn-primary my-2 d-block mx-auto">
+        Submit
+      </button>
+    </form>
   );
 }
