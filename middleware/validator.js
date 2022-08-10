@@ -41,7 +41,6 @@ const registrationRules = [
   body("password")
     .trim()
     .notEmpty()
-    .withMessage("Invalid value provided")
     .isStrongPassword({
       minLength: 5,
       minLowercase: 0,
