@@ -107,7 +107,8 @@ export default function Registration({ onLogin }) {
                 multiline={true}
               >
                 - Password must be at least 5 characters long <br />
-                - Contain one uppercase letters <br />- Contain one special case
+                - Contain one uppercase letters <br />
+                - Contain one special case
                 letter
               </ReactTooltip>
             </div>

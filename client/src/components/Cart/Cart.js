@@ -61,14 +61,12 @@ export default function Cart({ cart, onCartUpdate, user }) {
   if (cart.length === 0) {
     return (
       <>
-        <div className="container my-4">
-          <h2>Shopping Bag</h2>
-        </div>
-        <div className="container mb-5">
-          <div className="card" style={{ width: "100%", height: "25vh" }}>
+        <div className="container">
+          <h2 className="my-4">Shopping Bag</h2>
+          <div className="card mb-5" style={{ width: "100%", height: "25vh" }}>
             <div className="card-body d-flex justify-content-center align-items-center">
               <h4 className="card-title text-center">
-                No items added to this bag{" "}
+                No items added to this bag
               </h4>
             </div>
           </div>
@@ -81,9 +79,7 @@ export default function Cart({ cart, onCartUpdate, user }) {
     <>
       <div className="container my-4">
         <h2> Shopping Bag</h2>
-      </div>
-      <div className="container mb-4 ">
-        <div className="row flex-column flex-lg-row justify-content-center">
+        <div className="row mb-4 flex-column flex-lg-row justify-content-center">
           <div className="col-lg-7 col-xl-8">
             {cart.map(({ item }) => {
               const buyAmount = cart[index(item.id)].quantity;
@@ -142,35 +138,33 @@ export default function Cart({ cart, onCartUpdate, user }) {
               );
             })}
           </div>
-          <div className="col">
-            <div className="card align-self-start py-4">
-              <div className="card-body">
-                <h4 className="card-title my-4 ">Order Summary</h4>
-                <h5 className="card-subtitle my-4 ">
-                  Subtotal:{" "}
-                  <span style={{ float: " right" }}>RM {calculateTotal()}</span>
-                </h5>
-                <h5 className="card-subtitle my-4 ">
-                  Estimated Shipping:{" "}
-                  <span style={{ float: " right" }}>Free</span>
-                </h5>
-                <h6 className="card-text text-muted">
-                  Shipping only available via Poslaju
-                </h6>
-                <h5 className="card-subtitle my-4">
-                  Total:{" "}
-                  <span style={{ float: " right" }}>RM {calculateTotal()}</span>
-                </h5>
-                <Link to="/checkout">
-                  <button
-                    type="button"
-                    className="btn btn-primary d-block mx-auto btn-lg"
-                    onClick={handleCheckout}
-                  >
-                    Checkout
-                  </button>
-                </Link>
-              </div>
+          <div className=" col card align-self-start py-4 ">
+            <div className="card-body">
+              <h4 className="card-title my-4 ">Order Summary</h4>
+              <h5 className="card-subtitle my-4 ">
+                Subtotal:
+                <span style={{ float: " right" }}>RM {calculateTotal()}</span>
+              </h5>
+              <h5 className="card-subtitle my-4 ">
+                Estimated Shipping:
+                <span style={{ float: " right" }}>Free</span>
+              </h5>
+              <h6 className="card-text text-muted">
+                Shipping only available via Poslaju
+              </h6>
+              <h5 className="card-subtitle my-4">
+                Total:
+                <span style={{ float: " right" }}>RM {calculateTotal()}</span>
+              </h5>
+              <Link to="/checkout">
+                <button
+                  type="button"
+                  className="btn btn-primary d-block mx-auto btn-lg"
+                  onClick={handleCheckout}
+                >
+                  Checkout
+                </button>
+              </Link>
             </div>
           </div>
         </div>

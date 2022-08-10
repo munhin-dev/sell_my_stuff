@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import Loading from "./Loading";
 import dayjs from "dayjs";
 
-
 export default function Dashboard() {
   const [orders, setOrders] = useState([]);
   const [products, setProducts] = useState([]);
@@ -37,17 +36,15 @@ export default function Dashboard() {
 
   return (
     <div className="container my-4">
-      <div className="row">
-        <h2>Dashboard</h2>
-        <h3 className="my-3">Total Sales: RM {calculateEarning(orders)}</h3>
-      </div>
+      <h2>Dashboard</h2>
+      <h3 className="my-3">Total Sales: RM {calculateEarning(orders)}</h3>
       <div className="row justify-content-end me-2">
         <a href="/admin/product/new" className="col-auto btn btn-primary">
           Add Product
         </a>
       </div>
       <div
-        className="my-5 order-list"
+        className="my-5 order-list row"
         style={{ height: "300px", overflowY: "scroll" }}
       >
         <table className="table caption-top table-striped">
