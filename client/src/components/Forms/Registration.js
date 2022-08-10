@@ -36,7 +36,7 @@ export default function Registration({ onLogin }) {
   const message = (value) => errors.find((err) => err.param === value)?.msg;
 
   return (
-    <div className="container col-8 my-5" style={{ maxWidth: "350px" }}>
+    <div className="container col-10 my-5" style={{ maxWidth: "350px" }}>
       <div className="row flex-column mt-5">
         <form onSubmit={handleSubmit}>
           <div className="text-end">
