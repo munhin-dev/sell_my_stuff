@@ -5,7 +5,6 @@ import { useNavigate, Link } from "react-router-dom";
 export default function LoginForm({ onLogin, onCartUpdate, cart }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
