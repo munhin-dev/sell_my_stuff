@@ -8,9 +8,11 @@ export default function Navbar({ user, cart }) {
   return (
     <nav className="navbar navbar-expand-xl navbar-light bg-light">
       <div className="container">
-        <Link to="/" className="navbar-brand">
-          <img src={homeButton} width="180" height="40" alt="Home" />
-        </Link>
+        <div>
+          <Link to="/" className="navbar-brand">
+            <img src={homeButton} width="180" height="40" alt="Logo" style={{cursor: "pointer"}} />
+          </Link>
+        </div>
         <ul className="d-xl-none navbar-nav ms-auto">
           <li className="nav-item">
             <Link to="cart" className="nav-link position-relative">
