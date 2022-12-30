@@ -44,7 +44,7 @@ const registrationRules = [
     .isLength({
       min: 5,
     })
-    .withMessage("Passwords must be at least 10 characters in length"),
+    .withMessage("Passwords must be at least 5 characters in length"),
   body("email")
     .trim()
     .notEmpty()
