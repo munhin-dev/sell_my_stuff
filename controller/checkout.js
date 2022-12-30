@@ -39,10 +39,9 @@ const checkout = {
         success_url: `${domain()}/success`,
         cancel_url: `${domain()}/cart`,
       });
-
       res.status(200).json({ url });
-    } catch (error) {
-      next(error);
+    } catch (err) {
+      next(err);
     }
   },
 
@@ -73,8 +72,8 @@ const checkout = {
           text: mailContent(order.id, user.first_name),
         });
         res.status(200).json({ message: "Payment processed successfully." });
-      } catch (error) {
-        next(error);
+      } catch (err) {
+        next(err);
       }
     }
   },
