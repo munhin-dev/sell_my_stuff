@@ -139,7 +139,7 @@ export default function Registration({ onLogin }) {
       <div className="form-group mt-4">
         <label>Mobile Number:</label>
         <div className="d-flex">
-          <input className="form-control" style={{maxWidth:50}} defaultValue="+6" readOnly/>
+          <span className="mt-1">+6</span>
           <input
             type="text"
             className={`form-control ${invalid("mobile")} ms-2`}
