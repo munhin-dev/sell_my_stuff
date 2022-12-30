@@ -104,12 +104,8 @@ export default function Registration({ onLogin }) {
                 place="top"
                 effect="solid"
                 type="dark"
-                multiline={true}
               >
-                - Password must be at least 5 characters long <br />
-                - Contain one uppercase letters <br />
-                - Contain one special case
-                letter
+                Password must be at least 5 characters long
               </ReactTooltip>
             </div>
           </div>
@@ -142,12 +138,15 @@ export default function Registration({ onLogin }) {
       </div>
       <div className="form-group mt-4">
         <label>Mobile Number:</label>
-        <input
-          type="text"
-          className={`form-control ${invalid("mobile")}`}
-          name="mobile"
-          onChange={handleChange}
-        />
+        <div className="d-flex">
+          <input className="form-control" style={{maxWidth:50}} defaultValue="+6" readOnly/>
+          <input
+            type="text"
+            className={`form-control ${invalid("mobile")} ms-2`}
+            name="mobile"
+            onChange={handleChange}
+          />
+        </div>
         <div className="invalid-feedback">{message("mobile")}</div>
       </div>
       <div className="form-group mt-4">
