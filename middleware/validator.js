@@ -41,14 +41,10 @@ const registrationRules = [
   body("password")
     .trim()
     .notEmpty()
-    .isStrongPassword({
-      minLength: 5,
-      minLowercase: 0,
-      minUppercase: 1,
-      minNumbers: 0,
-      minSymbols: 1,
+    .isLength({
+      min: 5,
     })
-    .withMessage("Password is too weak"),
+    .withMessage("Passwords must be at least 10 characters in length"),
   body("email")
     .trim()
     .notEmpty()
