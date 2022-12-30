@@ -1,4 +1,5 @@
 import axios from "axios";
+import Swal from "sweetalert2";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 export default function LoginForm({ onLogin, onCartUpdate, cart }) {
@@ -9,8 +10,12 @@ export default function LoginForm({ onLogin, onCartUpdate, cart }) {
 
   const handleSubmit = async (event) => {
     try {
+      let timerInterval;
       event.preventDefault();
-      const { data: user } = await axios.post("/api/login", { username, password });
+      const { data: user } = await axios.post("/api/login", {
+        username,
+        password,
+      });
       onLogin.handleUser(user.isLoggedIn);
       onLogin.handleAdmin(user.isAdmin);
       if (cart.length) {
@@ -19,7 +24,26 @@ export default function LoginForm({ onLogin, onCartUpdate, cart }) {
         const { data: cart } = await axios.get("/api/cart");
         onCartUpdate(JSON.parse(cart.content));
       }
-      navigate(-1);
+      Swal.fire({
+        title: "Auto close alert!",
+        html: "I will close in <b></b> milliseconds.",
+        timer: 2000,
+        timerProgressBar: true,
+        didOpen: () => {
+          Swal.showLoading();
+          const b = Swal.getHtmlContainer().querySelector("b");
+          timerInterval = setInterval(() => {
+            b.textContent = Swal.getTimerLeft();
+          }, 100);
+        },
+        willClose: () => {
+          clearInterval(timerInterval);
+        },
+      }).then((result) => {
+        if (result.dismiss === Swal.DismissReason.timer) {
+          navigate(-1);
+        }
+      });
     } catch (err) {
       setError(err.response.data.error);
     }
@@ -30,7 +54,14 @@ export default function LoginForm({ onLogin, onCartUpdate, cart }) {
 
   return (
     <>
-      <div className="alert alert-danger" role="alert" style={{ visibility: error ? "visible" : "hidden", minHeight: "65.58px" }}>
+      <div
+        className="alert alert-danger"
+        role="alert"
+        style={{
+          visibility: error ? "visible" : "hidden",
+          minHeight: "65.58px",
+        }}
+      >
         {error}
       </div>
       <form className="container" onSubmit={handleSubmit}>
@@ -40,13 +71,24 @@ export default function LoginForm({ onLogin, onCartUpdate, cart }) {
               <label className="form-label" htmlFor="username">
                 Username
               </label>
-              <input type="text" id="username" className="form-control" onChange={handleUsername} />
+              <input
+                type="text"
+                id="username"
+                className="form-control"
+                onChange={handleUsername}
+              />
             </div>
             <div className="form-group mb-4">
               <label className="form-label" htmlFor="password">
                 Password
               </label>
-              <input type="password" id="password" className="form-control" autoComplete="on" onChange={handlePassword} />
+              <input
+                type="password"
+                id="password"
+                className="form-control"
+                autoComplete="on"
+                onChange={handlePassword}
+              />
             </div>
             <button type="submit" className="btn btn-primary btn-block mb-4">
               Sign in
