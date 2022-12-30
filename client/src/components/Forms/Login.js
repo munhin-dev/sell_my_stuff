@@ -10,12 +10,12 @@ export default function LoginForm({ onLogin, onCartUpdate, cart }) {
 
   const handleSubmit = async (event) => {
     try {
-      let timerInterval;
       event.preventDefault();
       const { data: user } = await axios.post("/api/login", {
         username,
         password,
       });
+
       onLogin.handleUser(user.isLoggedIn);
       onLogin.handleAdmin(user.isAdmin);
       if (cart.length) {
@@ -24,28 +24,20 @@ export default function LoginForm({ onLogin, onCartUpdate, cart }) {
         const { data: cart } = await axios.get("/api/cart");
         onCartUpdate(JSON.parse(cart.content));
       }
-      Swal.fire({
-        title: "Auto close alert!",
-        html: "I will close in <b></b> milliseconds.",
-        timer: 2000,
-        timerProgressBar: true,
-        didOpen: () => {
-          Swal.showLoading();
-          const b = Swal.getHtmlContainer().querySelector("b");
-          timerInterval = setInterval(() => {
-            b.textContent = Swal.getTimerLeft();
-          }, 100);
-        },
-        willClose: () => {
-          clearInterval(timerInterval);
-        },
-      }).then((result) => {
-        if (result.dismiss === Swal.DismissReason.timer) {
-          navigate(-1);
-        }
-      });
+        Swal.fire({
+          icon: "success",
+          title: "Log In Successful",
+          showConfirmButton: false,
+          timer: 1500,
+        }).then(() => navigate(-1));
+      
     } catch (err) {
-      setError(err.response.data.error);
+      Swal.fire({
+        icon: "error",
+        title: "Incorrect Credentials",
+        showConfirmButton: false,
+        timer: 1500,
+      });
     }
   };
 
@@ -54,17 +46,7 @@ export default function LoginForm({ onLogin, onCartUpdate, cart }) {
 
   return (
     <>
-      <div
-        className="alert alert-danger"
-        role="alert"
-        style={{
-          visibility: error ? "visible" : "hidden",
-          minHeight: "65.58px",
-        }}
-      >
-        {error}
-      </div>
-      <form className="container" onSubmit={handleSubmit}>
+      <form className="container mt-5" onSubmit={handleSubmit}>
         <div className="row justify-content-center">
           <div className="col" style={{ maxWidth: "350px" }}>
             <div className="form-group mb-2">
@@ -95,7 +77,7 @@ export default function LoginForm({ onLogin, onCartUpdate, cart }) {
             </button>
           </div>
         </div>
-        <div className="text-center pb-5 mb-5">
+        <div className="text-center pb-5">
           <p>
             Not a member?
             <Link to="/signup">
