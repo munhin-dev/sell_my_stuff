@@ -44,9 +44,7 @@ export default function Cart({ cart, onCartUpdate, user }) {
             showConfirmButton: false,
             timer: 1500,
           }).then(() => navigate("/account"));
-        } else {
-          console.log(err);
-        }
+        } 
       });
   };
 
