@@ -11,15 +11,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/munhin90/sell_my_stuff.git"
+    "url": "git+https://github.com/munhin-dev/sell_my_stuff.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/munhin90/sell_my_stuff/issues"
+    "url": "https://github.com/munhin-dev/sell_my_stuff/issues"
   },
-  "homepage": "https://github.com/munhin90/sell_my_stuff#readme",
+  "homepage": "https://github.com/munhin-dev/sell_my_stuff#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "dotenv": "^16.0.1",

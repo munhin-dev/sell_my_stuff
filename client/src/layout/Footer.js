@@ -28,7 +28,7 @@ export default function Footer() {
           <a href="https://www.linkedin.com/" className="me-4 text-reset">
             <i className="fab fa-linkedin"></i>
           </a>
-          <a href="https://github.com/munhin90" className="me-4 text-reset">
+          <a href="https://github.com/munhin-dev" className="me-4 text-reset">
             <i className="fab fa-github"></i>
           </a>
         </div>
